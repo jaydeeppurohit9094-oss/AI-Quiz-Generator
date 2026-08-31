@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quiz Generator | Student Profile</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <!-- Background Animated Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i data-lucide="brain-circuit" class="text-primary"></i>
+                    <span>AI Quiz Gen</span>
+                </div>
+                <button class="close-sidebar" id="closeSidebar" aria-label="Close Sidebar">
+                    <i data-lucide="x"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="deshboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a></li>
+                    <li class="nav-item"><a href="upload.html"><i data-lucide="upload-cloud"></i> Upload Material</a></li>
+                    
+                    <li class="nav-item"><a href="quiz-history.html"><i data-lucide="history"></i> Quiz History</a></li>
+                    <li class="nav-item"><a href="performance.html"><i data-lucide="bar-chart-2"></i> Performance</a></li>
+                 
+                    <li class="nav-item active"><a href="profile.html"><i data-lucide="user"></i> Profile</a></li>
+                </ul>
+                
+                <div class="nav-divider"></div>
+                
+                <!-- Horizontal Footer Row from previous setup -->
+                <div class="sidebar-footer-row">
+                    <a href="#" class="footer-btn active" title="My Profile">
+                        <i data-lucide="user-circle"></i>
+                        <span>Profile</span>
+                    </a>
+                   
+                    </a>
+                    <a href="login.html" class="footer-btn logout" id="sidebarLogout" title="Logout">
+                        <i data-lucide="power"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar -->
+            <header class="top-navbar glass-panel">
+                <div class="navbar-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                        <i data-lucide="menu"></i>
+                    </button>
+                    <div class="search-bar">
+                        <i data-lucide="search"></i>
+                        <input type="text" placeholder="Search settings, activity...">
+                    </div>
+                </div>
+                
+                <div class="navbar-right">
+                    <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                        <i data-lucide="moon"></i>
+                    </button>
+                    <div class="dropdown-wrapper">
+                        <button class="icon-btn notification-btn" id="notifBtn" aria-label="Notifications">
+                            <i data-lucide="bell"></i>
+                            <span class="badge">2</span>
+                        </button>
+                    </div>
+                    
+                    <div class="dropdown-wrapper">
+                        <div class="user-profile" id="profileDropdownBtn">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Carter&background=2563EB&color=fff" alt="User Avatar" id="navAvatar">
+                            <div class="user-info hide-mobile">
+                                <span class="user-name">NEW USER</span>
+                            </div>
+                            <i data-lucide="chevron-down" class="hide-mobile"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Profile Content Area -->
+            <div class="dashboard-body profile-layout">
+                
+                <!-- Profile Header -->
+                <section class="profile-header glass-card">
+                    <div class="header-content">
+                        <div class="profile-avatar-container">
+                            <img src="https://ui-avatars.com/api/?name=Alex+Carter&background=2563EB&color=fff" alt="Alex Carter" id="mainAvatar">
+                            <button class="edit-photo-btn" onclick="document.getElementById('fileInput').click()" aria-label="Edit Photo">
+                                <i data-lucide="camera"></i>
+                            </button>
+                        </div>
+                        <div class="profile-title">
+                            <h1>Alex Carter <span class="status-badge bg-success-light text-success"><i data-lucide="check-circle-2"></i> Active</span></h1>
+                            <p>Student ID: STU-849201 • alex.carter@university.edu</p>
+                            <p class="member-since">Member since September 2024</p>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="profile-grid">
+                    <!-- Left Column: Forms -->
+                    <div class="grid-col-left">
+                        
+                        <!-- Personal Information Form -->
+                        <section class="glass-card form-section">
+                            <div class="section-header">
+                                <h3><i data-lucide="user"></i> Personal Information</h3>
+                            </div>
+                            <form id="personalInfoForm" class="floating-form">
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <input type="text" id="fullName" placeholder=" " value="Alex Carter" required>
+                                        <label for="fullName">Full Name</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="email" id="email" placeholder=" " value="alex.carter@university.edu" required>
+                                        <label for="email">Email Address</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <input type="tel" id="mobile" placeholder=" " value="+1 (555) 123-4567">
+                                        <label for="mobile">Mobile Number</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="date" id="dob" placeholder=" " value="2002-05-14">
+                                        <label for="dob">Date of Birth</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="input-group">
+                                        <input type="text" id="college" placeholder=" " value="Global Tech University">
+                                        <label for="college">College Name</label>
+                                    </div>
+                                    <div class="input-group select-group">
+                                        <select id="department" required>
+                                            <option value="cs" selected>Computer Science</option>
+                                            <option value="it">Information Technology</option>
+                                            <option value="ec">Electronics</option>
+                                        </select>
+                                        <label for="department">Department</label>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="input-group select-group">
+                                        <select id="semester" required>
+                                            <option value="1">Semester 1</option>
+                                            <option value="2">Semester 2</option>
+                                            <option value="3">Semester 3</option>
+                                            <option value="4" selected>Semester 4</option>
+                                            <option value="5">Semester 5</option>
+                                        </select>
+                                        <label for="semester">Semester</label>
+                                    </div>
+                                    <div class="input-group">
+                                        <input type="text" id="enrollment" placeholder=" " value="ENR2024CS092" disabled>
+                                        <label for="enrollment">Enrollment Number</label>
+                                    </div>
+                                </div>
+                                <div class="form-actions mt-4">
+                                    <button type="button" class="btn btn-outline" id="resetBtn">Reset Form</button>
+                                    <button type="submit" class="btn btn-primary ripple">Save Changes</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <!-- Change Password Section -->
+                       
+
+                    </div>
+
+                    <!-- Right Column: Info, Badges, Settings -->
+                    <div class="grid-col-right">
+                        
+                        <!-- Profile Photo Upload Card -->
+                        <section class="glass-card photo-card">
+                            <div class="section-header">
+                                <h3><i data-lucide="image"></i> Profile Photo</h3>
+                            </div>
+                            <div class="photo-upload-area">
+                                <input type="file" id="fileInput" accept=".jpg, .jpeg, .png" hidden>
+                                <div class="preview-area" id="dropZone">
+                                    <i data-lucide="upload-cloud" class="upload-icon text-primary"></i>
+                                    <p>Drag & drop or click to upload</p>
+                                    <span class="file-hint">JPG, PNG up to 5MB</span>
+                                </div>
+                                <div class="photo-actions mt-3">
+                                    <button class="btn btn-outline btn-sm w-100" onclick="document.getElementById('fileInput').click()">Change Photo</button>
+                                    <button class="btn btn-outline-danger btn-sm w-100" id="removePhotoBtn">Remove</button>
+                                </div>
+                            </div>
+                        </section>
+
+                       
+                      
+
+                        <!-- Preferences & Settings -->
+                        
+
+                        <!-- Achievements -->
+                       
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <footer>
+                <p>AI Quiz Generator © 2026. Made for Students using Artificial Intelligence.</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Confirmation Modal (Delete Account) -->
+    <div id="deleteModal" class="modal-overlay">
+        <div class="modal-content glass-card">
+            <i data-lucide="alert-octagon" class="text-danger modal-icon"></i>
+            <h2>Delete Account?</h2>
+            <p>This action cannot be undone. All your quizzes, materials, and analytics will be permanently removed.</p>
+            <div class="modal-actions mt-4">
+                <button class="btn btn-outline" id="cancelDelete">Cancel</button>
+                <button class="btn btn-danger ripple">Yes, Delete Everything</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login | AI Quiz Generator</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <main class="auth-container">
+    
+    <!-- LEFT PANEL: AI Hero Section (55%) -->
+    <section class="hero-panel" aria-label="Brand and features presentation">
+      <div class="hero-particles" aria-hidden="true">
+        <span class="particle p1"></span>
+        <span class="particle p2"></span>
+        <span class="particle p3"></span>
+        <span class="particle p4"></span>
+        <span class="particle p5"></span>
+      </div>
+
+      <div class="hero-content">
+        <!-- Circular AI Logo -->
+        <div class="brand-logo-wrapper">
+          <div class="brand-logo" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- AI Brain Nodes -->
+              <path d="M22 28C22 24.6863 24.6863 22 28 22H36C39.3137 22 42 24.6863 42 28V36C42 39.3137 39.3137 42 36 42H28C24.6863 42 22 39.3137 22 36V28Z" stroke="url(#logo-grad)" stroke-width="2.5" stroke-dasharray="4 2"/>
+              <!-- Graduation Cap Symbol -->
+              <path d="M32 14L16 22L32 30L48 22L32 14Z" fill="url(#logo-grad)" opacity="0.9"/>
+              <path d="M42 25V33C42 33 37 38 32 38C27 38 22 33 22 33V25" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+              <path d="M48 22V31" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+              <!-- Central Spark / Question Core -->
+              <circle cx="32" cy="48" r="2.5" fill="#38BDF8"/>
+              <path d="M32 42V44" stroke="#38BDF8" stroke-width="2" stroke-linecap="round"/>
+              <defs>
+                <linearGradient id="logo-grad" x1="16" y1="14" x2="48" y2="42" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#38BDF8"/>
+                  <stop offset="1" stop-color="#818CF8"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Hero Text -->
+        <div class="hero-header">
+          <h1 class="hero-title">Welcome to <span class="gradient-text">AI Quiz Generator</span></h1>
+          <p class="hero-subtitle">Enhance Your Learning with AI</p>
+          <div class="hero-divider" aria-hidden="true"></div>
+        </div>
+
+        <!-- Hero Illustration -->
+        <div class="hero-illustration-container" aria-hidden="true">
+          <div class="illustration-glow"></div>
+          
+          <div class="illustration-core">
+            <!-- Central SVG Illustration (AI Brain + Open Book) -->
+            <svg class="illustration-svg" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Book Base -->
+              <path d="M60 170C90 155 130 160 160 175C190 160 230 155 260 170V195C230 180 190 185 160 200C130 185 90 180 60 195V170Z" fill="url(#book-grad)" opacity="0.4"/>
+              <path d="M160 175V200" stroke="#38BDF8" stroke-width="2"/>
+              
+              <!-- Tech Circuit Rays -->
+              <path d="M160 145V165M120 130L140 150M200 130L180 150" stroke="#818CF8" stroke-width="1.5" stroke-linecap="round"/>
+              
+              <!-- AI Core Brain Node -->
+              <circle cx="160" cy="110" r="32" fill="#0F172A" stroke="url(#brain-stroke)" stroke-width="2.5"/>
+              <path d="M150 100C150 94.4772 154.477 90 160 90C165.523 90 170 94.4772 170 100C170 104 167 106 160 109V114" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round"/>
+              <circle cx="160" cy="122" r="1.5" fill="#38BDF8"/>
+              
+              <!-- Neural Connections -->
+              <line x1="160" y1="78" x2="160" y2="60" stroke="#38BDF8" stroke-width="1.5" stroke-dasharray="2 2"/>
+              <line x1="128" y1="110" x2="105" y2="110" stroke="#818CF8" stroke-width="1.5" stroke-dasharray="2 2"/>
+              <line x1="192" y1="110" x2="215" y2="110" stroke="#818CF8" stroke-width="1.5" stroke-dasharray="2 2"/>
+
+              <defs>
+                <linearGradient id="book-grad" x1="60" y1="155" x2="260" y2="200" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#3B82F6"/>
+                  <stop offset="1" stop-color="#7C3AED"/>
+                </linearGradient>
+                <linearGradient id="brain-stroke" x1="128" y1="78" x2="192" y2="142" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#38BDF8"/>
+                  <stop offset="1" stop-color="#A855F7"/>
+                </linearGradient>
+              </defs>
+            </svg>
+
+            <!-- Floating Quiz Card 1: Question -->
+            <div class="floating-card card-top-left">
+              <span class="card-badge">Q. 04</span>
+              <span class="card-text">Complexity Analysis?</span>
+              <span class="card-tag">AI Generated</span>
+            </div>
+
+            <!-- Floating Quiz Card 2: Option Correct -->
+            <div class="floating-card card-right">
+              <div class="card-option active">
+                <span class="status-icon success">&#10003;</span>
+                <span>O(log n)</span>
+              </div>
+              <div class="card-option">
+                <span class="status-icon">&#9675;</span>
+                <span>O(n²)</span>
+              </div>
+            </div>
+
+            <!-- Floating HUD Badge -->
+            <div class="floating-badge card-bottom-left">
+              <span class="hud-dot"></span> 98.4% Accuracy
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Login Form (45%) -->
+    <section class="form-panel" aria-label="Student Sign In Area">
+      
+
+      <div class="form-wrapper">
+        <div class="form-header">
+          <h2 class="form-title">Student Login</h2>
+          <p class="form-subtitle">Welcome back! Please enter your details.</p>
+          <div class="form-divider" aria-hidden="true"></div>
+        </div>
+
+        <!-- Global Status Notification Banner -->
+        <div id="statusNotification" class="status-notification" role="alert" aria-live="polite" hidden></div>
+
+        <form id="loginForm" class="auth-form" novalidate>
+          
+          <!-- Email Input Group -->
+          <div class="input-group" id="emailGroup">
+            <label for="emailInput" class="input-label">Email Address</label>
+            <div class="input-field-container">
+              <span class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+                </svg>
+              </span>
+              <input 
+                type="email" 
+                id="emailInput" 
+                name="email" 
+                class="form-input" 
+                placeholder="student@university.edu" 
+                autocomplete="email" 
+                required
+              >
+            </div>
+            <span class="error-message" id="emailError" aria-live="polite"></span>
+          </div>
+
+          <!-- Password Input Group -->
+          <div class="input-group" id="passwordGroup">
+            <label for="passwordInput" class="input-label">Password</label>
+            <div class="input-field-container">
+              <span class="field-icon" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="currentColor" width="18" height="18">
+                  <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                </svg>
+              </span>
+              <input 
+                type="password" 
+                id="passwordInput" 
+                name="password" 
+                class="form-input" 
+                placeholder="••••••••" 
+                autocomplete="current-password" 
+                required
+              >
+              <button type="button" class="btn-toggle-password" id="btnTogglePassword" aria-label="Toggle password visibility">
+                <svg id="eyeIcon" class="eye-icon" viewBox="0 0 20 20" fill="currentColor" width="18" height="18" aria-hidden="true">
+                  <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                  <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                </svg>
+              </button>
+            </div>
+            <span class="error-message" id="passwordError" aria-live="polite"></span>
+          </div>
+
+       
+          <!-- Sign In Submit Button -->
+         <button type="button" class="btn-submit" id="btnSubmit"
+        onclick="window.location.href='deshboard.html'">
+  <span class="btn-text">Sign In &rarr;</span>
+  <span class="btn-spinner" aria-hidden="true"></span>
+</button>
+        </form>
+
+        <!-- OR Divider -->
+        <div class="auth-divider">
+          <span>OR</span>
+        </div>
+
+        <!-- Google OAuth Button -->
+        <button type="button" class="btn-google" id="btnGoogleLogin">
+          <svg class="google-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+            <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+            <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.34 24 12 24z"/>
+            <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 9.99 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
+            <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.34 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+
+        <!-- Bottom Feature Highlights -->
+        <div class="features-grid">
+          
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>Secure & Safe</strong>
+              <small>Your data is protected</small>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="4" y="4" width="16" height="16" rx="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>AI Powered</strong>
+              <small>Smart quiz generation</small>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <div class="feature-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+              </svg>
+            </div>
+            <div class="feature-text">
+              <strong>Learn Better</strong>
+              <small>Track & improve</small>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Application Script -->
+  <script src="login.js"></script>
+</body>
+</html>

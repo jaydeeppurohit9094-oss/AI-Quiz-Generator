@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Quiz Generator | Student Dashboard</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Background Animated Blobs -->
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fa-solid fa-brain"></i>
+                    <span>AI Quiz Gen</span>
+                </div>
+                <button class="close-sidebar" id="closeSidebar" aria-label="Close Sidebar">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item active"><a href="deshboard.html"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+                    <!-- અહીં id="btn-upload-sidebar" ઉમેર્યું છે -->
+                    <li class="nav-item"> <a href="upload.html"><i class="fa-solid fa-file-arrow-up"></i> Upload Material </a></li>
+                    <li class="nav-item"><a href="quiz-history.html"><i class="fa-solid fa-clock-rotate-left"></i> Quiz History</a></li>
+                    <li class="nav-item"><a href="performance.html"><i class="fa-solid fa-chart-line"></i> Performance</a></li>
+                
+                 
+                </ul>
+                
+                <div class="nav-divider"></div>
+                
+                <div class="sidebar-footer-row">
+                    <a href="profile.html" class="footer-btn" title="My Profile">
+                        <i class="fa-solid fa-user"></i>
+                        <span>Profile</span>
+                    </a>
+                   
+                    </a>
+                    <a href="login.html" class="footer-btn logout" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navbar (Same as your code) -->
+            <header class="top-navbar glass-panel">
+                <div class="navbar-left">
+                    <button class="menu-toggle" id="menuToggle" aria-label="Toggle Menu">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div class="search-bar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" placeholder="Search quizzes, materials...">
+                    </div>
+                </div>
+                
+                <div class="navbar-right">
+                    <span class="current-date" id="currentDate"></span>
+                    <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle Dark Mode">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    <div class="dropdown-wrapper">
+                        
+                        
+                    </div>
+                    
+                    <div class="dropdown-wrapper">
+                        <div class="user-profile" id="profileBtn">
+                            <img src="https://ui-avatars.com/api/?name=Student+One&background=2563EB&color=fff" alt="User Avatar">
+                            <div class="user-info hide-mobile"></div>
+                            <i class="fa-solid fa-chevron-down hide-mobile"></i>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-body">
+                
+                <!-- Hero Section -->
+                <section class="hero-section glass-card ai-glow">
+                    <div class="hero-content">
+                        <h1>Welcome back, Alex </h1>
+                        <p>Continue your AI learning journey! </p>
+                        <div class="hero-actions">
+                            <!-- અહીં id="btn-upload-hero" ઉમેર્યું છે -->
+                            <button class="btn-upload" onclick="window.location.href='upload.html'">
+                             <i data-lucide="upload-cloud"></i>
+                              Upload Material
+                            </button>
+
+                            
+                           
+                        </div>
+                    </div>
+
+                    
+                    <div class="hero-illustration">
+                        <i class="fa-solid fa-robot fa-4x text-accent float-anim"></i>
+                    </div>
+                </section>
+
+                <!-- Dashboard Statistics Section Starts Here -->
+    <section class="stats-container">
+        
+        <!-- Card 1: Total Materials -->
+        <div class="stat-card" style="--accent-color: #3B82F6; --delay: 1;">
+            <div class="stat-icon-wrapper">
+                <span class="stat-icon">📚</span>
+            </div>
+            <div class="stat-info">
+                <h3 class="stat-title">Total Materials</h3>
+                <div class="stat-value-container">
+                    <span class="stat-value" data-target="12" data-suffix="">0</span>
+                </div>
+                <p class="stat-status">+3 uploaded this week</p>
+            </div>
+        </div>
+
+        <!-- Card 2: Total Quizzes -->
+        <div class="stat-card" style="--accent-color: #8B5CF6; --delay: 2;">
+            <div class="stat-icon-wrapper">
+                <span class="stat-icon">📝</span>
+            </div>
+            <div class="stat-info">
+                <h3 class="stat-title">Total Quizzes</h3>
+                <div class="stat-value-container">
+                    <span class="stat-value" data-target="35" data-suffix="">0</span>
+                </div>
+                <p class="stat-status">+8 AI Generated</p>
+            </div>
+        </div>
+
+        <!-- Card 3: Average Score -->
+        <div class="stat-card" style="--accent-color: #22C55E; --delay: 3;">
+            <div class="stat-icon-wrapper">
+                <span class="stat-icon">🏆</span>
+            </div>
+            <div class="stat-info">
+                <h3 class="stat-title">Average Score</h3>
+                <div class="stat-value-container">
+                    <span class="stat-value" data-target="82" data-suffix="%">0%</span>
+                </div>
+                <p class="stat-status">Excellent Performance</p>
+            </div>
+        </div>
+
+        <!-- Card 4: Study Time -->
+        <div class="stat-card" style="--accent-color: #F59E0B; --delay: 4;">
+            <div class="stat-icon-wrapper">
+                <span class="stat-icon">⏱</span>
+            </div>
+            <div class="stat-info">
+                <h3 class="stat-title">Study Time</h3>
+                <div class="stat-value-container">
+                    <span class="stat-value" data-target="24" data-suffix=" hrs">0 hrs</span>
+                </div>
+                <p class="stat-status">+2.5 hrs today</p>
+            </div>
+        </div>
+
+    </section>
+
+                
+            </div>
+        </main>
+    </div>
+
+    <!-- ========================================= -->
+    <!-- UPLOAD MATERIAL MODAL (POPUP) CODE        -->
+    <!-- ========================================= -->
+    <div id="upload-modal" class="modal hidden">
+        <div class="modal-content">
+            <button id="close-modal" class="close-btn"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="upload-card">
+                <header class="card-header">
+                    <div class="logo"><i class="fa-solid fa-brain"></i></div>
+                    <h1 class="page-title">Upload Study Material</h1>
+                    <p class="subtitle">Upload your study material and let AI generate intelligent quizzes instantly.</p>
+                </header>
+
+                <div id="modal-drop-zone" class="modal-drop-zone">
+                    <input type="file" id="modal-file-input" accept=".pdf,.docx,.ppt,.pptx,.txt" hidden>
+                    <div class="drop-content">
+                        <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                        <p class="drop-text">Drag & Drop your files here</p>
+                        <p class="or-text">or</p>
+                        <button class="btn-choose" id="modal-btn-choose-file">Choose File</button>
+                        <p class="supported-types">Supported: PDF, DOCX, PPT, TXT (Max: 100MB)</p>
+                    </div>
+                </div>
+
+                <div id="upload-progress-container" class="progress-container hidden">
+                    <div class="progress-info">
+                        <span id="uploading-file-name" class="uploading-name">Uploading file...</span>
+                        <span id="upload-percentage" class="upload-percentage">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar" class="progress-bar"></div>
+                    </div>
+                </div>
+
+                <div id="file-info-card" class="file-info-card hidden">
+                    <div class="file-details">
+                        <div class="detail-item"><i class="fa-solid fa-file-lines detail-icon"></i><div class="detail-text"><span class="detail-label">File Name</span><strong id="info-name">document.pdf</strong></div></div>
+                        <div class="detail-item"><i class="fa-solid fa-circle-check detail-icon success"></i><div class="detail-text"><span class="detail-label">Status</span><strong class="success-text">Uploaded Successfully</strong></div></div>
+                        <div class="detail-item"><i class="fa-solid fa-hard-drive detail-icon"></i><div class="detail-text"><span class="detail-label">Size</span><strong id="info-size">0 MB</strong></div></div>
+                        <div class="detail-item"><i class="fa-solid fa-layer-group detail-icon"></i><div class="detail-text"><span class="detail-label">Pages</span><strong id="info-pages">--</strong></div></div>
+                        <div class="detail-item"><i class="fa-regular fa-clock detail-icon"></i><div class="detail-text"><span class="detail-label">Upload Time</span><strong id="info-time">10:00 AM</strong></div></div>
+                        <div class="detail-item"><i class="fa-solid fa-tag detail-icon"></i><div class="detail-text"><span class="detail-label">File Type</span><strong id="info-type">PDF</strong></div></div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="btn-remove" class="btn btn-secondary hidden"><i class="fa-solid fa-trash-can"></i> Remove File</button>
+                    <button id="btn-generate" class="btn btn-primary" disabled><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Quiz</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Custom JS -->
+    <script src="dashboard.js"></script>
+</body>
+</html>

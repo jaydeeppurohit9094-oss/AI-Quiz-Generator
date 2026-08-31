@@ -1,0 +1,356 @@
+/* ==========================================
+   CSS Resets & Variables
+   ========================================== */
+:root {
+    --primary-blue: #f5eeeed2;
+    --primary-purple: #7C3AED;
+    --success-green: #10B981;
+    --bg-color: #F8FAFC;
+    
+    --text-dark: #0F172A;
+    --text-muted: #64748B;
+    --text-light: #94A3B8;
+    
+    --glass-bg: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.4);
+    --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    pointer-events: none; /* Disables all user interactions globally while loading */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+/* ==========================================
+   Background Animations (Floating Blobs)
+   ========================================== */
+.bg-shapes {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    animation: float 10s infinite ease-in-out alternate;
+}
+
+.shape-blue {
+    background-color: var(--primary-blue);
+    width: 400px;
+    height: 400px;
+    top: -100px;
+    left: -100px;
+}
+
+.shape-purple {
+    background-color: var(--primary-purple);
+    width: 500px;
+    height: 500px;
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+/* ==========================================
+   Glassmorphism Main Card
+   ========================================== */
+.glass-card {
+    position: relative;
+    z-index: 10;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: var(--glass-shadow);
+    animation: slideUpFade 0.8s ease-out forwards;
+}
+
+@keyframes slideUpFade {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================
+   Header Section
+   ========================================== */
+.card-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.ai-icon-container {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(124,58,237,0.1));
+    color: var(--primary-purple);
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.ai-icon {
+    width: 32px;
+    height: 32px;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124,58,237, 0.4); }
+    70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(124,58,237, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(124,58,237, 0); }
+}
+
+.gradient-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-purple));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: opacity 0.5s ease;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    transition: opacity 0.5s ease;
+}
+
+/* ==========================================
+   Progress Section
+   ========================================== */
+.progress-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.circular-loader-wrapper {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1.5rem;
+}
+
+.circular-loader {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.loader-bg {
+    fill: none;
+    stroke: #E2E8F0;
+    stroke-width: 8;
+}
+
+.loader-progress {
+    fill: none;
+    stroke: url(#gradient); /* Defined in SVG or fallback below */
+    stroke: var(--primary-blue);
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-dasharray: 283; /* 2 * pi * 45 */
+    stroke-dashoffset: 283;
+    transition: stroke-dashoffset 0.5s ease-out;
+}
+
+.percentage-display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 6px;
+    background-color: #E2E8F0;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-blue), var(--primary-purple));
+    border-radius: 999px;
+    transition: width 0.5s ease-out;
+}
+
+/* ==========================================
+   Steps Section
+   ========================================== */
+.steps-section {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    padding: 1.25rem;
+    max-height: 220px; /* Constrain height to keep UI clean */
+    overflow-y: hidden;
+    position: relative;
+}
+
+/* Gradient mask for smooth fading at the bottom */
+.steps-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%);
+    border-radius: 0 0 16px 16px;
+}
+
+.steps-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+/* Step Icons Container */
+.step-icon-wrapper {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+/* Step States */
+.icon-pending, .icon-active, .icon-completed {
+    display: none; /* Hidden by default */
+}
+
+/* Pending State */
+.step.pending .icon-pending {
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--text-light);
+    border-radius: 50%;
+}
+.step.pending .step-text {
+    color: var(--text-light);
+}
+
+/* Active State */
+.step.active .icon-active {
+    display: block;
+    color: var(--primary-blue);
+    width: 20px;
+    height: 20px;
+}
+.step.active .step-text {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Completed State */
+.step.completed .icon-completed {
+    display: block;
+    color: var(--success-green);
+    width: 18px;
+    height: 18px;
+    animation: scaleIn 0.3s ease-out;
+}
+.step.completed .step-text {
+    color: var(--success-green);
+}
+
+/* Spinner Animation */
+.spinner {
+    animation: rotate 1.5s linear infinite;
+}
+.spinner circle {
+    stroke-dasharray: 60;
+    stroke-dashoffset: 20;
+}
+
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes scaleIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
+}
+
+/* ==========================================
+   Responsive Design
+   ========================================== */
+@media (max-width: 480px) {
+    .glass-card {
+        padding: 1.5rem;
+        width: 95%;
+    }
+    
+    .gradient-text {
+        font-size: 1.25rem;
+    }
+    
+    .circular-loader-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .step {
+        font-size: 0.85rem;
+    }
+}
+
