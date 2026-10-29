@@ -1,445 +1,83 @@
-/* Global Body styling */
-body {
-  margin: 0;
-  padding: 0;
-  background-color: #f1f5f9; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-}
 
-/* Base Container Styles */
-.upload-modal {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #ffffff; 
-  color: #0f172a;
-  width: 100%;
-  max-width: 600px;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  position: relative;
-}
+/* =====================================================
+   AI QUIZ GENERATOR — UPLOAD PAGE
+   Matches Dashboard Light Glassmorphism Theme
+   ===================================================== */
 
-/* Close Button */
-.close-btn {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #f1f5f9;
-  color: #0f172a;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s;
-}
-
-.close-btn:hover {
-  background-color: #e2e8f0;
-}
-
-/* Header */
-.upload-header h2 {
-  font-size: 24px;
-  margin-top: 0;
-  margin-bottom: 8px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.upload-header h2 i {
-  color: #2563eb;
-}
-
-.upload-header p {
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 25px;
-}
-
-/* Drag & Drop Zone */
-.upload-dropzone {
-  border: 2px dashed #cbd5e1;
-  border-radius: 10px;
-  padding: 40px 20px;
-  text-align: center;
-  background-color: #f8fafc;
-  margin-bottom: 20px;
-  transition: background-color 0.3s;
-}
-
-.upload-dropzone:hover {
-  background-color: #f1f5f9;
-}
-
-.icon-large {
-  font-size: 40px;
-  color: #94a3b8;
-  margin-bottom: 15px;
-}
-
-.dropzone-text {
-  font-size: 16px;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 15px;
-}
-
-.dropzone-text span {
-  color: #94a3b8;
-  font-size: 14px;
-}
-
-/* Custom File Upload Button */
-input[type="file"] {
-  display: none;
-}
-
-.custom-file-upload {
-  display: inline-block;
-  padding: 8px 16px;
-  cursor: pointer;
-  background-color: #f1f5f9;
-  color: #0f172a;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  transition: background-color 0.2s;
-}
-
-.custom-file-upload:hover {
-  background-color: #e2e8f0;
-}
-
-.supported-text {
-  font-size: 12px;
-  color: #94a3b8;
-  margin: 0;
-}
-
-/* Progress Bar */
-.upload-progress-container {
-  margin-bottom: 25px;
-}
-
-.progress-text {
-  display: flex;
-  justify-content: space-between;
-  font-size: 14px;
-  color: #64748b;
-  margin-bottom: 8px;
-}
-
-.progress-bar-bg {
-  width: 100%;
-  height: 6px;
-  background-color: #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
-}
-
-.progress-bar-fill {
-  width: 0%; 
-  height: 100%;
-  background-color: #2563eb;
-  transition: width 0.2s ease;
-}
-
-/* File Details Grid */
-.file-details-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-  background-color: #f8fafc;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 25px;
-}
-
-.detail-item {
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  gap: 10px;
-}
-
-.detail-item i {
-  color: #94a3b8;
-  width: 16px;
-  text-align: center;
-}
-
-.detail-item .label {
-  color: #64748b;
-  flex: 1;
-}
-
-.detail-item .value {
-  font-weight: 600;
-  color: #0f172a;
-}
-
-.detail-item .success {
-  color: #10b981; 
-}
-
-/* Action Buttons */
-.action-buttons {
-  display: flex;
-  gap: 15px;
-}
-
-.btn {
-  flex: 1;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: 600;
-  color: #ffffff;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: opacity 0.2s;
-}
-
-.btn:hover {
-  opacity: 0.85;
-}
-
-.btn-remove {
-  background-color: #8b5cf6; 
-}
-
-.btn-generate {
-  background-color: #2563eb; 
-}
-/* ==========================================
-   SIDEBAR VARIABLES
-   ========================================== */
 :root {
-    --sidebar-bg: #ffffff;
-    --primary: #2563eb;
-    --text-main: #0f172a;
-    --text-sec: #64748b;
-    --border-color: rgba(0, 0, 0, 0.08);
-    --red: #ef4444;
+    --upload-bg: #f1f5f9;
+    --upload-card: rgba(243, 227, 243, 0.82);
+    --upload-surface: rgba(248, 250, 252, 0.9);
+    --upload-primary: #2563eb;
+    --upload-primary-hover: #1d4ed8;
+    --upload-accent: #4f46e5;
+    --upload-success: #10b981;
+    --upload-danger: #ef4444;
+    --upload-text: #0f172a;
+    --upload-muted: #64748b;
+    --upload-border: rgba(15, 23, 42, 0.09);
+    --upload-shadow: 0 18px 50px rgba(15, 23, 42, 0.07);
 }
 
-/* ==========================================
-   SIDEBAR LAYOUT & GLASSMORPHISM
-   ========================================== */
-.sidebar {
-    width: 260px;
-    height: 100vh;
-    background-color: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    transition: left 0.3s ease;
-    flex-shrink: 0;
-    z-index: 1000;
+/* -----------------------------
+   Global Page Layout
+   ----------------------------- */
+
+* {
+    box-sizing: border-box;
 }
 
-.sidebar.glass-panel {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-/* ==========================================
-   HEADER SECTION
-   ========================================== */
-.sidebar-header {
-    height: 70px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1.5rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--text-main);
-}
-
-.text-primary {
-    color: var(--primary);
-}
-
-.close-sidebar {
-    background: none;
-    border: none;
-    color: var(--text-sec);
-    cursor: pointer;
-    display: none; /* Hidden on desktop screens */
-}
-
-/* ==========================================
-   NAVIGATION LIST
-   ========================================== */
-.sidebar-nav {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-}
-
-.nav-list {
-    list-style: none;
-    padding: 1.5rem 1rem;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.nav-item a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    color: var(--text-sec);
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 500;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-.nav-item a:hover {
-    background-color: rgba(0, 0, 0, 0.04);
-    color: var(--text-main);
-}
-
-/* Active State */
-.nav-item.active a {
-    background-color: rgba(37, 99, 235, 0.1);
-    color: var(--primary);
-    border-right: 3px solid var(--primary);
-}
-
-/* Lucide Icon Sizing within Nav */
-.nav-item a svg {
-    width: 20px;
-    height: 20px;
-}
-
-/* ==========================================
-   DIVIDER & FOOTER
-   ========================================== */
-.nav-divider {
-    height: 1px;
-    background: var(--border-color);
-    margin: 0 1.5rem;
-}
-
-.sidebar-footer-row {
-    padding: 1rem;
-    margin-top: auto; /* Pushes the footer to the bottom */
-    display: flex;
-    justify-content: space-around;
-    border-top: 1px solid var(--border-color);
-}
-
-.footer-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-sec);
-    text-decoration: none;
-    font-size: 0.8rem;
-    transition: all 0.3s ease;
-    padding: 8px;
-    border-radius: 8px;
-}
-
-.footer-btn:hover, .footer-btn.active {
-    color: var(--text-main);
-    background-color: rgba(0, 0, 0, 0.04);
-}
-
-.footer-btn.logout {
-    color: var(--red);
-}
-
-.footer-btn.logout:hover {
-    color: #ef4444;
-    background-color: rgba(239, 68, 68, 0.08);
-}
-
-/* ==========================================
-   MOBILE RESPONSIVENESS
-   ========================================== */
-@media (max-width: 1024px) {
-    .sidebar {
-        position: fixed;
-        top: 0;
-        left: -260px; /* Hidden off-screen by default */
-    }
-    .sidebar.open {
-        left: 0; /* Slides in when .open class is added */
-    }
-    .close-sidebar {
-        display: block; /* Show the 'X' close button */
-    }
-}
-/* ==========================================
-   MAIN WRAPPER & TOP NAVBAR (MISSING CSS)
-   ========================================== */
-
-/* This fixes the overall page layout */
 body {
     margin: 0;
     padding: 0;
-    background-color: #f1f5f9;
-    color: #0f172a;
-    font-family: 'Inter', system-ui, sans-serif;
-    display: flex; /* This makes the sidebar and main content sit side-by-side */
     min-height: 100vh;
+    background-color: var(--upload-bg);
+    color: var(--upload-text);
+    font-family: 'Inter', sans-serif;
     overflow-x: hidden;
 }
 
-/* This wraps your main content area */
+/* Sidebar is fixed in sidebar-layout.css */
 .main-wrapper {
-    flex: 1;
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    min-width: 0;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-width: 0; 
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(79, 70, 229, 0.07),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 10% 90%,
+            rgba(37, 99, 235, 0.06),
+            transparent 30%
+        ),
+        var(--upload-bg);
 }
 
-/* This styles the top navigation bar */
+/* -----------------------------
+   Top Navigation
+   ----------------------------- */
+
 .top-navbar {
+    min-height: 70px;
     height: 70px;
-    background-color: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0 2rem;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 2rem;
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: 900;
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--upload-border);
 }
 
 .nav-left {
@@ -449,64 +87,632 @@ body {
 }
 
 .breadcrumb {
-    color: #64748b;
+    color: var(--upload-muted);
+    font-size: 0.9rem;
     font-weight: 500;
-    font-size: 0.95rem;
 }
 
 .breadcrumb span {
-    color: #0f172a;
+    color: var(--upload-text);
+    font-weight: 600;
 }
 
 .mobile-toggle {
     display: none;
-    background: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #0f172a;
-    padding: 6px;
-    border-radius: 6px;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: #fff;
+    color: var(--upload-text);
+    border: 1px solid var(--upload-border);
+    border-radius: 10px;
     cursor: pointer;
 }
 
 .user-profile {
     display: flex;
     align-items: center;
+    gap: 12px;
 }
 
 .notification-icon {
-    color: #64748b;
-    cursor: pointer;
-    margin-right: 15px;
     width: 20px;
     height: 20px;
+    color: var(--upload-muted);
+    cursor: pointer;
 }
 
 .avatar {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    background: linear-gradient(
+        135deg,
+        var(--upload-primary),
+        var(--upload-accent)
+    );
+    color: #fff;
+    font-size: 0.85rem;
+    font-weight: 700;
+    box-shadow: 0 5px 14px rgba(37, 99, 235, 0.2);
+}
+
+/* -----------------------------
+   Main Upload Area
+   ----------------------------- */
+
+.upload-container {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    padding: 2rem !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-modal {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    padding: 34px;
+    overflow: hidden;
+    color: var(--upload-text);
+    background: var(--upload-card);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    border-radius: 22px;
+    box-shadow: var(--upload-shadow);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    animation: uploadFadeIn 0.45s ease both;
+}
+
+.upload-modal::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+        90deg,
+        var(--upload-primary),
+        var(--upload-accent),
+        #8b5cf6
+    );
+}
+
+@keyframes uploadFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* -----------------------------
+   Close Button
+   ----------------------------- */
+
+.upload-modal .close-btn {
+    position: absolute;
+    top: 22px;
+    right: 22px;
     width: 36px;
     height: 36px;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--upload-border);
+    border-radius: 11px;
+    background: #fff;
+    color: var(--upload-muted);
+    font-size: 23px;
+    line-height: 1;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.upload-modal .close-btn:hover {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: var(--upload-danger);
+    transform: rotate(90deg);
+}
+
+/* -----------------------------
+   Upload Header
+   ----------------------------- */
+
+.upload-header {
+    padding-right: 35px;
+    margin-bottom: 26px;
+}
+
+.upload-header h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 10px;
+    font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+    line-height: 1.4;
+    font-weight: 700;
+    letter-spacing: -0.6px;
+    color: var(--upload-text);
+}
+
+.upload-header h2 i {
+    width: 44px;
+    height: 44px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    color: #ffffff;
+    flex-shrink: 0;
+    border-radius: 13px;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--upload-primary);
+    font-size: 21px;
 }
 
-/* Ensure the toggle button shows on mobile */
+.upload-header p {
+    margin: 0;
+    color: var(--upload-muted);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+/* -----------------------------
+   Drag and Drop Zone
+   ----------------------------- */
+
+.upload-dropzone {
+    position: relative;
+    margin-bottom: 26px;
+    padding: 34px 20px;
+    text-align: center;
+    background: linear-gradient(
+        145deg,
+        rgba(37, 99, 235, 0.035),
+        rgba(79, 70, 229, 0.055)
+    );
+    border: 2px dashed rgba(37, 99, 235, 0.35);
+    border-radius: 17px;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.upload-dropzone:hover {
+    background: rgba(37, 99, 235, 0.075);
+    border-color: var(--upload-primary);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.06);
+}
+
+.upload-dropzone.drag-over {
+    background: rgba(37, 99, 235, 0.1);
+    border-color: var(--upload-primary);
+    transform: scale(1.01);
+}
+
+.icon-large {
+    display: block;
+    margin-bottom: 18px;
+    color: var(--upload-primary);
+    font-size: 43px;
+    filter: drop-shadow(0 5px 9px rgba(37, 99, 235, 0.15));
+}
+
+.dropzone-text {
+    margin: 0 0 17px;
+    color: var(--upload-text);
+    font-size: 1rem;
+    line-height: 1.8;
+    font-weight: 600;
+}
+
+.dropzone-text span {
+    color: var(--upload-muted);
+    font-size: 0.85rem;
+    font-weight: 400;
+}
+
+/* File Picker */
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 22px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(37, 99, 235, 0.2);
+    border-radius: 10px;
+    background: linear-gradient(
+        135deg,
+        var(--upload-primary),
+        var(--upload-accent)
+    );
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.18);
+    transition: 0.25s ease;
+}
+
+.custom-file-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.25);
+}
+
+.custom-file-upload:active {
+    transform: translateY(0);
+}
+
+.supported-text {
+    margin: 0;
+    color: var(--upload-muted);
+    font-size: 0.76rem;
+    line-height: 1.7;
+}
+
+/* -----------------------------
+   Upload Progress
+   ----------------------------- */
+
+.upload-progress-container {
+    margin-bottom: 25px;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    color: var(--upload-muted);
+    font-size: 0.84rem;
+}
+
+#progressLabel {
+    font-weight: 500;
+}
+
+#progressPercent {
+    color: var(--upload-primary);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+.progress-bar-bg {
+    width: 100%;
+    height: 8px;
+    overflow: hidden;
+    background: #e2e8f0;
+    border-radius: 20px;
+}
+
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg,
+        var(--upload-primary),
+        var(--upload-accent)
+    );
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.25);
+    transition: width 0.3s ease;
+}
+
+/* -----------------------------
+   File Details
+   ----------------------------- */
+
+.file-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 26px;
+    padding: 18px;
+    background: rgba(241, 245, 249, 0.75);
+    border: 1px solid var(--upload-border);
+    border-radius: 15px;
+}
+
+.detail-item {
+    min-width: 0;
+    min-height: 66px;
+    display: grid;
+    grid-template-columns: 20px minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-content: center;
+    column-gap: 10px;
+    row-gap: 5px;
+    padding: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.045);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.8);
+    transition:
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.detail-item:hover {
+    border-color: rgba(37, 99, 235, 0.22);
+    transform: translateY(-2px);
+}
+
+.detail-item > i {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    align-self: center;
+    width: 20px;
+    color: var(--upload-primary);
+    text-align: center;
+    font-size: 16px;
+}
+
+.detail-item .label {
+    min-width: 0;
+    color: var(--upload-muted);
+    font-size: 0.72rem;
+    font-weight: 500;
+}
+
+.detail-item .value {
+    min-width: 0;
+    color: var(--upload-text);
+    font-size: 0.83rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.detail-item .value.success {
+    color: var(--upload-success);
+}
+
+/* -----------------------------
+   Action Buttons
+   ----------------------------- */
+
+.action-buttons {
+    display: flex;
+    gap: 14px;
+    width: 100%;
+}
+
+.upload-modal .btn {
+    min-height: 47px;
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 12px 18px;
+    border: 1px solid transparent;
+    border-radius: 11px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.upload-modal .btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+.upload-modal .btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.upload-modal .btn:focus-visible,
+.custom-file-upload:focus-within,
+.upload-modal .close-btn:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 3px;
+}
+
+.upload-modal .btn-remove {
+    background: rgba(239, 68, 68, 0.07);
+    color: var(--upload-danger);
+    border-color: rgba(239, 68, 68, 0.18);
+}
+
+.upload-modal .btn-remove:hover:not(:disabled) {
+    background: rgba(239, 68, 68, 0.13);
+    box-shadow: 0 6px 16px rgba(239, 68, 68, 0.08);
+}
+
+.upload-modal .btn-generate {
+    background: linear-gradient(
+        135deg,
+        var(--upload-primary),
+        var(--upload-accent)
+    );
+    color: #fff;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+}
+
+.upload-modal .btn-generate:hover:not(:disabled) {
+    box-shadow: 0 10px 22px rgba(37, 99, 235, 0.27);
+}
+
+.upload-modal .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* -----------------------------
+   Tablet Layout
+   ----------------------------- */
+
 @media (max-width: 1024px) {
-    .mobile-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .main-wrapper {
+        margin-left: 0;
+        width: 100%;
     }
+
+    .mobile-toggle {
+        display: inline-flex;
+    }
+
     .top-navbar {
-        padding: 0 1rem;
+        padding: 0 1.25rem;
+    }
+
+    .upload-container {
+        padding: 1.5rem !important;
+    }
+
+    .upload-modal {
+        max-width: 780px;
     }
 }
-/* ================================
-   FIXED SIDEBAR - AI QUIZ GEN
-   ================================ */
+
+/* -----------------------------
+   Mobile Layout
+   ----------------------------- */
+
+@media (max-width: 600px) {
+    .top-navbar {
+        min-height: 62px;
+        height: 62px;
+        padding: 0 1rem;
+    }
+
+    .nav-left {
+        gap: 0.7rem;
+    }
+
+    .breadcrumb {
+        font-size: 0.78rem;
+    }
+
+    .avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+    }
+
+    .notification-icon {
+        margin-right: 2px;
+    }
+
+    .upload-container {
+        padding: 1rem 0.75rem !important;
+        align-items: flex-start;
+    }
+
+    .upload-modal {
+        padding: 25px 17px 20px;
+        border-radius: 17px;
+    }
+
+    .upload-modal .close-btn {
+        top: 16px;
+        right: 15px;
+        width: 32px;
+        height: 32px;
+    }
+
+    .upload-header {
+        padding-right: 22px;
+        margin-bottom: 22px;
+    }
+
+    .upload-header h2 {
+        gap: 9px;
+        font-size: 1.2rem;
+    }
+
+    .upload-header h2 i {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        font-size: 18px;
+    }
+
+    .upload-header p {
+        font-size: 0.82rem;
+    }
+
+    .upload-dropzone {
+        padding: 28px 12px;
+        margin-bottom: 22px;
+    }
+
+    .icon-large {
+        font-size: 36px;
+    }
+
+    .dropzone-text {
+        font-size: 0.9rem;
+    }
+
+    .supported-text {
+        font-size: 0.7rem;
+    }
+
+    .file-details-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+        padding: 12px;
+    }
+
+    .detail-item {
+        min-height: 59px;
+    }
+
+    .action-buttons {
+        flex-direction: column-reverse;
+        gap: 10px;
+    }
+
+    .upload-modal .btn {
+        width: 100%;
+        min-height: 46px;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    .upload-modal,
+    .upload-dropzone,
+    .detail-item,
+    .upload-modal .btn,
+    .custom-file-upload,
+    .upload-modal .close-btn {
+        animation: none;
+        transition: none;
+    }
+}
+
+
+/* =========================================
+   SIDEBAR FIX — AI QUIZ GENERATOR
+   ========================================= */
 
 .sidebar {
     position: fixed;
@@ -515,50 +721,366 @@ body {
     width: 260px;
     height: 100vh;
     min-height: 100vh;
-    z-index: 1000;
-
-    background: #ffffff;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
-
+    padding: 1.5rem 0 0;
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
+    z-index: 1000;
+    overflow-x: hidden;
+    overflow-y: auto;
 
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-right: 1px solid rgba(15, 23, 42, 0.09);
+
+    transform: translateX(0);
+    transition: transform 0.3s ease;
+}
+
+/* Sidebar Header */
+
+.sidebar-header {
+    min-height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #2563eb;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.sidebar .text-primary {
+    color: #2563eb;
+}
+
+.sidebar .close-sidebar {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+}
+
+/* Sidebar Navigation */
+
+.sidebar .sidebar-nav {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
 }
 
-/* Main content must stay beside sidebar */
-.main-content {
-    margin-left: 260px;
-    min-height: 100vh;
-    width: calc(100% - 260px);
+.sidebar .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    padding: 0 1rem;
+    margin: 0;
 }
 
-/* Top navbar */
-.top-navbar {
-    position: sticky;
-    top: 0;
-    z-index: 900;
-    height: 70px;
-
-    background: rgba(255, 255, 255, 0.90);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+.sidebar .nav-item {
+    margin: 0;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+.sidebar .nav-item a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border-right: 3px solid transparent;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: 0.2s ease;
+}
+
+.sidebar .nav-item a:hover,
+.sidebar .nav-item.active a {
+    background: rgba(37, 99, 235, 0.09);
+    color: #2563eb;
+}
+
+.sidebar .nav-item.active a {
+    border-right-color: #2563eb;
+}
+
+.sidebar .nav-item a svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.sidebar .nav-divider {
+    height: 1px;
+    flex-shrink: 0;
+    margin: 1.25rem 1.25rem 0;
+    background: rgba(15, 23, 42, 0.09);
+}
+
+/* Sidebar Footer */
+
+.sidebar .sidebar-footer-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 8px;
+    padding: 1rem 0.75rem;
+    margin-top: auto;
+    border-top: 1px solid rgba(15, 23, 42, 0.09);
+}
+
+.sidebar .footer-btn {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 5px;
+    border-radius: 9px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.75rem;
+    transition: 0.2s ease;
+}
+
+.sidebar .footer-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.sidebar .footer-btn:hover,
+.sidebar .footer-btn.active {
+    background: rgba(37, 99, 235, 0.08);
+    color: #2563eb;
+}
+
+.sidebar .footer-btn.logout {
+    color: #ef4444;
+}
+
+/* Mobile Sidebar */
+
+@media (max-width: 1024px) {
+    .sidebar {
+        left: 0;
+        transform: translateX(-100%);
+        box-shadow: none;
+    }
+
+    .sidebar.open,
+    .sidebar.active {
+        left: 0;
+        transform: translateX(0);
+        box-shadow: 15px 0 40px rgba(15, 23, 42, 0.12);
+    }
+
+    .sidebar .close-sidebar {
+        display: inline-flex;
+    }
+
+    .main-wrapper {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+
+/* ==========================================
+   GENERATED QUIZ - PREMIUM DESIGN
+   ========================================== */
+
+#quizResults {
+    width: 100%;
+    margin-top: 32px !important;
+    padding: 24px !important;
+    background: #eaf0fb !important;
+    border: 1px solid #d5def0 !important;
+    border-radius: 24px !important;
+    box-sizing: border-box;
+    color: #172554 !important;
+    box-shadow: 0 12px 32px rgba(30, 58, 138, 0.08);
+}
+
+/* Quiz title */
+#quizResults > h2 {
+    margin: 0 !important;
+    padding: 22px 24px !important;
+    background: linear-gradient(135deg, #172554, #4338ca) !important;
+    color: #ffffff !important;
+    font-size: 25px !important;
+    font-weight: 800 !important;
+    line-height: 1.4 !important;
+    border-radius: 16px !important;
+    letter-spacing: -0.4px;
+    box-shadow: 0 8px 20px rgba(49, 46, 129, 0.18);
+}
+
+/* Quiz summary / total questions */
+#quizResults > p {
+    margin: 14px 2px 24px !important;
+    padding: 12px 16px !important;
+    background: #ffffff !important;
+    color: #334155 !important;
+    border: 1px solid #dbeafe !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 1.6 !important;
+}
+
+/* Individual question card */
+#quizResults > article {
+    margin: 0 0 22px !important;
+    padding: 24px !important;
+    background: #ffffff !important;
+    color: #172033 !important;
+    border: 1px solid #dbe3f0 !important;
+    border-left: 5px solid #4f46e5 !important;
+    border-radius: 18px !important;
+    box-shadow: 0 5px 18px rgba(15, 23, 42, 0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-sizing: border-box;
+}
+
+#quizResults > article:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.10);
+}
+
+/* Question heading */
+#quizResults > article h3 {
+    margin: 0 0 20px !important;
+    padding: 0 0 16px !important;
+    color: #172554 !important;
+    background: transparent !important;
+    border-bottom: 2px solid #e8edfa !important;
+    font-size: 18px !important;
+    font-weight: 750 !important;
+    line-height: 1.7 !important;
+    overflow-wrap: anywhere;
+}
+
+/* Answer options A, B, C, D */
+#quizResults > article p:nth-of-type(-n+4) {
+    margin: 10px 0 !important;
+    padding: 14px 16px !important;
+    background: #f1f5ff !important;
+    color: #25345b !important;
+    border: 1px solid #dce5ff !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 1.65 !important;
+    overflow-wrap: anywhere;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+#quizResults > article p:nth-of-type(-n+4):hover {
+    background: #e0e7ff !important;
+    border-color: #818cf8 !important;
+}
+
+/* Correct answer */
+#quizResults > article p:nth-of-type(5) {
+    margin: 18px 0 0 !important;
+    padding: 15px 16px !important;
+    background: #dcfce7 !important;
+    color: #166534 !important;
+    border: 1px solid #86efac !important;
+    border-left: 4px solid #16a34a !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.65 !important;
+    overflow-wrap: anywhere;
+}
+
+/* Explanation */
+#quizResults > article p:nth-of-type(6) {
+    margin: 12px 0 0 !important;
+    padding: 16px !important;
+    background: #fff7ed !important;
+    color: #7c2d12 !important;
+    border: 1px solid #fed7aa !important;
+    border-left: 4px solid #f59e0b !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 1.8 !important;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+    #quizResults {
+        padding: 12px !important;
+        margin-top: 22px !important;
+        border-radius: 18px !important;
+    }
+
+    #quizResults > h2 {
+        padding: 18px !important;
+        font-size: 21px !important;
+    }
+
+    #quizResults > article {
+        padding: 16px !important;
+        margin-bottom: 16px !important;
+    }
+
+    #quizResults > article h3 {
+        font-size: 16px !important;
+    }
+
+    #quizResults > article p:nth-of-type(-n+4) {
+        padding: 12px !important;
+        font-size: 14px !important;
+    }
+}
+
+
+/* =========================================
+   UPLOAD PAGE SIDEBAR RESPONSIVE FIX
+   ========================================= */
+
+@media (min-width: 1025px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+
+    .main-wrapper {
+        margin-left: 260px;
+        width: calc(100% - 260px);
+    }
+}
+
+@media (max-width: 1024px) {
     .sidebar {
         transform: translateX(-100%);
     }
 
+    .sidebar.open,
     .sidebar.active {
         transform: translateX(0);
     }
 
-    .main-content {
-        margin-left: 0;
-        width: 100%;
+    .mobile-toggle {
+        display: inline-flex;
     }
 }

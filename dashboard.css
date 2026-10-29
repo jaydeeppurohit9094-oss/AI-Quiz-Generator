@@ -440,3 +440,14 @@ body {
         padding: 20px;
     }
 }
+
+/* Utility class for hidden elements */
+.hidden {
+    display: none !important;
+}
+
+/* Disabled button state */
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

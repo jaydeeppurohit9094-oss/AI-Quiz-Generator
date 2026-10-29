@@ -1,61 +1,83 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Upload Study Material - AI Quiz Gen</title>
-  
-  <!-- Google Fonts: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome for Upload Modal Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Lucide Icons for Sidebar -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <!-- External CSS Files (Link both your layout/sidebar CSS and your specific upload CSS) -->
-  <link rel="stylesheet" href="sidebar-layout.css"> <!-- Replace with your actual sidebar CSS file name -->
-  <link rel="stylesheet" href="upload.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Study Material - AI Quiz Gen</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Upload Page CSS -->
+    <link rel="stylesheet" href="./upload.css">
 </head>
+
 <body>
 
-    <!-- ========================================== -->
-    <!-- SIDEBAR                                    -->
-    <!-- ========================================== -->
+    <!-- Sidebar -->
     <aside class="sidebar glass-panel" id="sidebar">
+
         <div class="sidebar-header">
             <div class="logo">
                 <i data-lucide="brain-circuit" class="text-primary"></i>
                 <span>AI Quiz Gen</span>
             </div>
-            <button class="close-sidebar" id="closeSidebar" aria-label="Close Sidebar">
+
+            <button type="button" class="close-sidebar" id="closeSidebar" aria-label="Close Sidebar">
                 <i data-lucide="x"></i>
             </button>
         </div>
-        
+
         <nav class="sidebar-nav">
             <ul class="nav-list">
-                <li class="nav-item"><a href="deshboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a></li>
-                
-                <!-- Set active class to Upload Material for this page -->
-                <li class="nav-item active"><a href="upload.html"><i data-lucide="upload-cloud"></i> Upload Material</a></li>
-                
-                <li class="nav-item"><a href="quiz-history.html"><i data-lucide="history"></i> Quiz History</a></li>
-                <li class="nav-item"><a href="performance.html"><i data-lucide="bar-chart-2"></i> Performance</a></li>
-                <li class="nav-item"><a href="profile.html"><i data-lucide="user"></i> Profile</a></li>
+                <li class="nav-item">
+                    <a href="deshboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        Dashboard
+                    </a>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="upload.html">
+                        <i data-lucide="upload-cloud"></i>
+                        Upload Material
+                    </a>
+                </li>
+
+               
+
+                <li class="nav-item">
+                    <a href="performance.html">
+                        <i data-lucide="bar-chart-2"></i>
+                        Performance
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="profile.html">
+                        <i data-lucide="user"></i>
+                        Profile
+                    </a>
+                </li>
             </ul>
-            
+
             <div class="nav-divider"></div>
-            
-            <!-- Horizontal Footer Row -->
+
             <div class="sidebar-footer-row">
-                <a href="profile.html" class="footer-btn active" title="My Profile">
+                <a href="profile.html" class="footer-btn" title="My Profile">
                     <i data-lucide="user-circle"></i>
                     <span>Profile</span>
                 </a>
+
                 <a href="login.html" class="footer-btn logout" id="sidebarLogout" title="Logout">
                     <i data-lucide="power"></i>
                     <span>Logout</span>
@@ -64,104 +86,149 @@
         </nav>
     </aside>
 
-    <!-- ========================================== -->
-    <!-- MAIN WRAPPER                               -->
-    <!-- ========================================== -->
+    <!-- Main Wrapper -->
     <div class="main-wrapper">
-        
-        <!-- Top Navbar (Required for Mobile Toggle) -->
+
+        <!-- Top Navbar -->
         <nav class="top-navbar">
             <div class="nav-left">
-                <!-- Mobile Toggle Button -->
-                <button class="mobile-toggle" id="sidebarToggleBtn">
+                <button type="button" class="mobile-toggle" id="sidebarToggleBtn" aria-label="Toggle Sidebar">
                     <i data-lucide="menu"></i>
                 </button>
-                <div class="breadcrumb">Dashboard / <span>Upload Material</span></div>
+
+                <div class="breadcrumb">
+                    Dashboard / <span>Upload Material</span>
+                </div>
             </div>
-            
+
             <div class="user-profile">
                 <i data-lucide="bell" class="notification-icon"></i>
                 <div class="avatar">ST</div>
             </div>
         </nav>
 
-        <!-- ========================================== -->
-        <!-- UPLOAD CONTENT AREA                        -->
-        <!-- ========================================== -->
-        <main class="upload-container" style="padding: 2rem; display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 70px);">
-            
+        <!-- Upload Content -->
+        <main class="upload-container">
+
             <div class="upload-modal">
-                <button class="close-btn" id="btnClose">&times;</button>
-                
+
+                <button type="button" class="close-btn" id="btnClose" aria-label="Close Upload">&times;</button>
+
                 <div class="upload-header">
-                    <h2><i class="fas fa-brain"></i> Upload Study Material</h2>
-                    <p>Upload your study material and let AI generate intelligent quizzes instantly.</p>
+                    <h2>
+                        <i class="fas fa-brain"></i>
+                        Upload Study Material
+                    </h2>
+
+                    <p>
+                        Upload your study material and let AI generate intelligent quizzes instantly.
+                    </p>
                 </div>
 
-                <div class="upload-dropzone">
+                <!-- File Dropzone -->
+                <div class="upload-dropzone" id="uploadDropzone">
+
                     <i class="fas fa-cloud-upload-alt icon-large"></i>
-                    <p class="dropzone-text">Drag & Drop your files here<br><span>or</span></p>
+
+                    <p class="dropzone-text">
+                        Drag &amp; Drop your files here
+                        <br>
+                        <span>or</span>
+                    </p>
+
                     <label class="custom-file-upload">
-                        <input type="file" id="fileInput"/>
+                        <input
+                            type="file"
+                            id="fileInput"
+                            accept=".pdf,.docx,.ppt,.pptx,.txt"
+                        >
                         Choose File
                     </label>
-                    <p class="supported-text">Supported: PDF, DOCX, PPT, TXT (Max: 100MB)</p>
+
+                    <p class="supported-text">
+                        Supported: PDF, DOCX, PPT, PPTX, TXT (Max: 100MB)
+                    </p>
                 </div>
 
+                <!-- Upload Progress -->
                 <div class="upload-progress-container">
                     <div class="progress-text">
                         <span id="progressLabel">Waiting for file...</span>
                         <span id="progressPercent">0%</span>
                     </div>
+
                     <div class="progress-bar-bg">
                         <div class="progress-bar-fill" id="progressBar"></div>
                     </div>
                 </div>
 
+                <!-- File Details -->
                 <div class="file-details-grid">
+
                     <div class="detail-item">
                         <i class="fas fa-file-alt"></i>
                         <span class="label">File Name</span>
                         <span class="value" id="valName">--</span>
                     </div>
+
                     <div class="detail-item">
                         <i class="fas fa-check-circle"></i>
                         <span class="label">Status</span>
                         <span class="value" id="valStatus">Waiting for file...</span>
                     </div>
+
                     <div class="detail-item">
                         <i class="fas fa-hdd"></i>
                         <span class="label">Size</span>
                         <span class="value" id="valSize">--</span>
                     </div>
+
                     <div class="detail-item">
                         <i class="fas fa-layer-group"></i>
                         <span class="label">Pages</span>
                         <span class="value" id="valPages">--</span>
                     </div>
+
                     <div class="detail-item">
                         <i class="far fa-clock"></i>
                         <span class="label">Upload Time</span>
                         <span class="value" id="valTime">--</span>
                     </div>
+
                     <div class="detail-item">
                         <i class="fas fa-tag"></i>
                         <span class="label">File Type</span>
                         <span class="value" id="valType">--</span>
                     </div>
+
                 </div>
 
+                <!-- Actions -->
                 <div class="action-buttons">
-                    <button class="btn btn-remove" id="btnRemove"><i class="fas fa-trash-alt"></i> Remove File</button>
-                    <button class="btn btn-generate" id="btnGenerate"><i class="fas fa-magic"></i> Generate Quiz</button>
-                </div>
-            </div>
+                    <button type="button" class="btn btn-remove" id="btnRemove">
+                        <i class="fas fa-trash-alt"></i>
+                        Remove File
+                    </button>
 
+                    <button type="button" class="btn btn-generate" id="btnGenerate">
+                        <i class="fas fa-magic"></i>
+                        Generate Quiz
+                    </button>
+                </div>
+
+            </div>
         </main>
     </div>
 
-  <!-- External JavaScript Files -->
-  <script src="sidebar.js"></script> <!-- Replace with your actual sidebar JS file name -->
-  <script src="upload.js"></script>
+    <!-- Only existing JavaScript file -->
+    <script src="./upload.js"></script>
+
+    <!-- Initialize Lucide icons -->
+    <script>
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    </script>
+
 </body>
 </html>

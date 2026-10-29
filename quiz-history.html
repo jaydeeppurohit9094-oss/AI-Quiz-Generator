@@ -1,167 +1,356 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Quiz History - AI Quiz Generator</title>
-    
-    <!-- Google Fonts: Inter -->
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    
-    <!-- External CSS -->
+
+    <!-- CSS -->
     <link rel="stylesheet" href="quiz-history.css">
 </head>
+
 <body>
 
-    <!-- ========================================== -->
-    <!-- SIDEBAR                                    -->
-    <!-- ========================================== -->
-       <aside class="sidebar glass-panel" id="sidebar">
-            <div class="sidebar-header">
-                <div class="logo">
-                    <i data-lucide="brain-circuit" class="text-primary"></i>
-                    <span>AI Quiz Gen</span>
-                </div>
-                <button class="close-sidebar" id="closeSidebar" aria-label="Close Sidebar">
-                    <i data-lucide="x"></i>
-                </button>
+    <!-- Sidebar -->
+    <aside class="sidebar glass-panel" id="sidebar">
+
+        <div class="sidebar-header">
+            <div class="logo">
+                <i data-lucide="brain-circuit" class="text-primary"></i>
+                <span>AI Quiz Gen</span>
             </div>
-            
-            <nav class="sidebar-nav">
-                <ul class="nav-list">
-                    <li class="nav-item"><a href="deshboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a></li>
-                    <li class="nav-item"><a href="upload.html"><i data-lucide="upload-cloud"></i> Upload Material</a></li>
-                    
-                    <li class="nav-item active"><a href="quiz-history.html"><i data-lucide="history"></i> Quiz History</a></li>
-                    <li class="nav-item"><a href="performance.html"><i data-lucide="bar-chart-2"></i> Performance</a></li>
-                 
-                    <li class="nav-item "><a href="profile.html"><i data-lucide="user"></i> Profile</a></li>
-                </ul>
-                
-                <div class="nav-divider"></div>
-                
-                <!-- Horizontal Footer Row from previous setup -->
-                <div class="sidebar-footer-row">
-                    <a href="#" class="footer-btn active" title="My Profile">
-                        <i data-lucide="user-circle"></i>
-                        <span>Profile</span>
+
+            <button
+                class="close-sidebar"
+                id="closeSidebar"
+                aria-label="Close Sidebar"
+                type="button"
+            >
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <ul class="nav-list">
+
+                <li class="nav-item">
+                    <a href="deshboard.html">
+                        <i data-lucide="layout-dashboard"></i>
+                        Dashboard
                     </a>
-                   
+                </li>
+
+                <li class="nav-item">
+                    <a href="upload.html">
+                        <i data-lucide="upload-cloud"></i>
+                        Upload Material
                     </a>
-                    <a href="login.html" class="footer-btn logout" id="sidebarLogout" title="Logout">
-                        <i data-lucide="power"></i>
-                        <span>Logout</span>
+                </li>
+
+                <li class="nav-item active">
+                    <a href="quiz-history.html">
+                        <i data-lucide="history"></i>
+                        Quiz History
                     </a>
-                </div>
-            </nav>
-        </aside>
-    <!-- ========================================== -->
-    <!-- MAIN WRAPPER                               -->
-    <!-- ========================================== -->
+                </li>
+
+                <li class="nav-item">
+                    <a href="performance.html">
+                        <i data-lucide="bar-chart-2"></i>
+                        Performance
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="profile.html">
+                        <i data-lucide="user"></i>
+                        Profile
+                    </a>
+                </li>
+
+            </ul>
+
+            <div class="nav-divider"></div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer-row">
+
+                <a
+                    href="profile.html"
+                    class="footer-btn"
+                    title="My Profile"
+                >
+                    <i data-lucide="user-circle"></i>
+                    <span>Profile</span>
+                </a>
+
+                <a
+                    href="login.html"
+                    class="footer-btn logout"
+                    id="sidebarLogout"
+                    title="Logout"
+                >
+                    <i data-lucide="power"></i>
+                    <span>Logout</span>
+                </a>
+
+            </div>
+
+        </nav>
+    </aside>
+
+
+    <!-- Main Wrapper -->
     <div class="main-wrapper">
-        
+
         <!-- Top Navbar -->
         <nav class="top-navbar">
+
             <div class="nav-left">
-                <!-- Mobile Toggle Button -->
-                <button class="mobile-toggle" id="sidebarToggleBtn">
+
+                <button
+                    class="mobile-toggle"
+                    id="sidebarToggleBtn"
+                    type="button"
+                    aria-label="Open Sidebar"
+                >
                     <i data-lucide="menu"></i>
                 </button>
-                <div class="breadcrumb">Dashboard / <span>Quiz History</span></div>
+
+                <div class="breadcrumb">
+                    Dashboard / <span>Quiz History</span>
+                </div>
+
             </div>
-            
+
             <div class="user-profile">
-                <i data-lucide="bell" class="notification-icon"></i>
+
+                <i
+                    data-lucide="bell"
+                    class="notification-icon"
+                ></i>
+
                 <div class="avatar">ST</div>
+
             </div>
+
         </nav>
 
-        <!-- Quiz History Content Area -->
+
+        <!-- Main Content -->
         <main class="quiz-history-container">
-            
+
             <!-- Page Header -->
-            <header class="page-header animate-fade-up" style="--delay: 0.1s">
+            <header
+                class="page-header animate-fade-up"
+                style="--delay: 0.1s"
+            >
+
                 <div>
                     <h1 class="page-title">📜 Quiz History</h1>
-                    <p class="page-subtitle">View all previously generated quizzes and your performance.</p>
+
+                    <p class="page-subtitle">
+                        View your previous quizzes and track your performance.
+                    </p>
                 </div>
-                <button class="btn btn-primary ripple export-btn">
+
+                <button
+                    class="btn btn-primary ripple export-btn"
+                    id="exportHistoryBtn"
+                    type="button"
+                >
                     <i data-lucide="download" class="icon-sm"></i>
                     Export History
                 </button>
+
             </header>
-        
-            <!-- Top Statistics Cards -->
+
+
+            <!-- Statistics Cards -->
             <section class="stats-grid">
-                <div class="stat-card glass-panel animate-fade-up" style="--delay: 0.2s">
+
+                <!-- Total Quizzes -->
+                <div
+                    class="stat-card glass-panel animate-fade-up"
+                    style="--delay: 0.2s"
+                >
+
                     <div class="stat-icon icon-blue">📚</div>
+
                     <div class="stat-info">
                         <p class="stat-label">Total Quizzes</p>
-                        <h3 class="stat-value">35</h3>
+
+                        <h3
+                            class="stat-value"
+                            data-stat="total-quizzes"
+                        >
+                            0
+                        </h3>
                     </div>
+
                 </div>
-                
-                <div class="stat-card glass-panel animate-fade-up" style="--delay: 0.3s">
+
+
+                <!-- Average Score -->
+                <div
+                    class="stat-card glass-panel animate-fade-up"
+                    style="--delay: 0.3s"
+                >
+
                     <div class="stat-icon icon-green">🏆</div>
+
                     <div class="stat-info">
                         <p class="stat-label">Average Score</p>
-                        <h3 class="stat-value">82%</h3>
+
+                        <h3
+                            class="stat-value"
+                            data-stat="average-score"
+                        >
+                            0%
+                        </h3>
                     </div>
+
                 </div>
-        
-                <div class="stat-card glass-panel animate-fade-up" style="--delay: 0.4s">
+
+
+                <!-- Highest Score -->
+                <div
+                    class="stat-card glass-panel animate-fade-up"
+                    style="--delay: 0.4s"
+                >
+
                     <div class="stat-icon icon-purple">⭐</div>
+
                     <div class="stat-info">
                         <p class="stat-label">Highest Score</p>
-                        <h3 class="stat-value">98%</h3>
+
+                        <h3
+                            class="stat-value"
+                            data-stat="highest-score"
+                        >
+                            0%
+                        </h3>
                     </div>
+
                 </div>
-        
-                <div class="stat-card glass-panel animate-fade-up" style="--delay: 0.5s">
-                    <div class="stat-icon icon-yellow">⏱</div>
+
+
+                <!-- Total Attempts -->
+                <div
+                    class="stat-card glass-panel animate-fade-up"
+                    style="--delay: 0.5s"
+                >
+
+                    <div class="stat-icon icon-yellow">📝</div>
+
                     <div class="stat-info">
-                        <p class="stat-label">Total Time</p>
-                        <h3 class="stat-value">24 hrs</h3>
+                        <p class="stat-label">Total Attempts</p>
+
+                        <h3
+                            class="stat-value"
+                            data-stat="total-attempts"
+                        >
+                            0
+                        </h3>
                     </div>
+
                 </div>
+
             </section>
-        
-            <!-- Search and Filter Section -->
-            <section class="filter-bar glass-panel animate-fade-up" style="--delay: 0.6s">
+
+
+            <!-- Search and Filters -->
+            <section
+                class="filter-bar glass-panel animate-fade-up"
+                style="--delay: 0.6s"
+            >
+
+                <!-- Search -->
                 <div class="search-box">
-                    <i data-lucide="search" class="search-icon icon-sm"></i>
-                    <input type="text" placeholder="Search Quiz..." class="glass-input">
+
+                    <i
+                        data-lucide="search"
+                        class="search-icon icon-sm"
+                    ></i>
+
+                    <input
+                        type="text"
+                        id="historySearch"
+                        placeholder="Search Quiz..."
+                        class="glass-input"
+                        autocomplete="off"
+                    >
+
                 </div>
-                
+
+
                 <div class="filter-group">
-                    <select class="glass-select">
-                        <option value="">Filter by Subject</option>
+
+                    <!-- Subject Filter -->
+                    <select
+                        class="glass-select"
+                        id="subjectFilter"
+                        aria-label="Filter by Subject"
+                    >
+                        <option value="">All Subjects</option>
                         <option value="java">Java</option>
                         <option value="dbms">DBMS</option>
                         <option value="python">Python</option>
                         <option value="os">Operating System</option>
+                        <option value="general">General</option>
                     </select>
-                    
-                    <input type="date" class="glass-input date-filter" aria-label="Filter by Date">
-                    
-                    <select class="glass-select">
+
+
+                    <!-- Date Filter -->
+                    <input
+                        type="date"
+                        class="glass-input date-filter"
+                        id="dateFilter"
+                        aria-label="Filter by Date"
+                    >
+
+
+                    <!-- Sorting -->
+                    <select
+                        class="glass-select"
+                        id="sortFilter"
+                        aria-label="Sort Quiz History"
+                    >
                         <option value="latest">Sort by Latest</option>
                         <option value="oldest">Sort by Oldest</option>
                         <option value="score-high">Highest Score</option>
                         <option value="score-low">Lowest Score</option>
                     </select>
+
                 </div>
+
             </section>
-        
+
+
             <!-- Quiz History Table -->
-            <section class="table-container glass-panel animate-fade-up" style="--delay: 0.7s">
+            <section
+                class="table-container glass-panel animate-fade-up"
+                style="--delay: 0.7s"
+            >
+
                 <div class="table-responsive">
+
                     <table class="history-table">
+
                         <thead>
                             <tr>
                                 <th>Quiz Name</th>
@@ -174,90 +363,68 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+
+                        <!-- JavaScript will load real quiz attempts here -->
+                        <tbody id="historyTableBody">
+
                             <tr>
-                                <td class="fw-500">Java Unit-1 Quiz</td>
-                                <td><span class="subject-tag">Java</span></td>
-                                <td>20</td>
-                                <td>18/20</td>
-                                <td class="text-green fw-500">90%</td>
-                                <td>02 Aug 2026</td>
-                                <td><span class="badge badge-completed">Completed</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon" title="View Result"><i data-lucide="eye"></i></button>
-                                        <button class="btn-icon" title="Retake Quiz"><i data-lucide="rotate-ccw"></i></button>
-                                        <button class="btn-icon" title="Download Report"><i data-lucide="file-down"></i></button>
-                                    </div>
+                                <td
+                                    colspan="8"
+                                    style="text-align: center;"
+                                >
+                                    Loading quiz history...
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="fw-500">DBMS Quiz</td>
-                                <td><span class="subject-tag">DBMS</span></td>
-                                <td>15</td>
-                                <td>13/15</td>
-                                <td class="text-green fw-500">87%</td>
-                                <td>30 Jul 2026</td>
-                                <td><span class="badge badge-completed">Completed</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon" title="View Result"><i data-lucide="eye"></i></button>
-                                        <button class="btn-icon" title="Retake Quiz"><i data-lucide="rotate-ccw"></i></button>
-                                        <button class="btn-icon" title="Download Report"><i data-lucide="file-down"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="fw-500">Python Basics</td>
-                                <td><span class="subject-tag">Python</span></td>
-                                <td>25</td>
-                                <td>20/25</td>
-                                <td class="text-yellow fw-500">80%</td>
-                                <td>28 Jul 2026</td>
-                                <td><span class="badge badge-pending">Pending Review</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon" title="View Result"><i data-lucide="eye"></i></button>
-                                        <button class="btn-icon" title="Retake Quiz"><i data-lucide="rotate-ccw"></i></button>
-                                        <button class="btn-icon" title="Download Report"><i data-lucide="file-down"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="fw-500">OS Fundamentals</td>
-                                <td><span class="subject-tag">Operating System</span></td>
-                                <td>20</td>
-                                <td>7/20</td>
-                                <td class="text-red fw-500">35%</td>
-                                <td>25 Jul 2026</td>
-                                <td><span class="badge badge-failed">Failed</span></td>
-                                <td>
-                                    <div class="action-buttons">
-                                        <button class="btn-icon" title="View Result"><i data-lucide="eye"></i></button>
-                                        <button class="btn-icon" title="Retake Quiz"><i data-lucide="rotate-ccw"></i></button>
-                                        <button class="btn-icon" title="Download Report"><i data-lucide="file-down"></i></button>
-                                    </div>
-                                </td>
-                            </tr>
+
                         </tbody>
+
                     </table>
+
                 </div>
-                
-                <!-- Pagination -->
-                <div class="pagination">
-                    <button class="page-btn" disabled>Previous</button>
-                    <div class="page-numbers">
-                        <button class="page-btn active">1</button>
-                        <button class="page-btn">2</button>
-                        <button class="page-btn">3</button>
+
+
+                <!-- Pagination Placeholder -->
+                <div class="pagination" id="historyPagination">
+
+                    <button
+                        class="page-btn"
+                        id="previousPageBtn"
+                        type="button"
+                        disabled
+                    >
+                        Previous
+                    </button>
+
+                    <div class="page-numbers" id="pageNumbers">
+                        <button
+                            class="page-btn active"
+                            type="button"
+                            disabled
+                        >
+                            1
+                        </button>
                     </div>
-                    <button class="page-btn">Next</button>
+
+                    <button
+                        class="page-btn"
+                        id="nextPageBtn"
+                        type="button"
+                        disabled
+                    >
+                        Next
+                    </button>
+
                 </div>
+
             </section>
+
         </main>
+
     </div>
 
-    <!-- External JS -->
+
+    <!-- JavaScript -->
     <script src="quiz-history.js"></script>
+
 </body>
 </html>

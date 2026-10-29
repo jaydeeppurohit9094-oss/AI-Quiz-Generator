@@ -1,269 +1,554 @@
-// profile.js
 
-document.addEventListener('DOMContentLoaded', () => {
-    // 1. Initialize Lucide Icons
-    lucide.createIcons();
+"use strict";
 
-    // 2. Sidebar Toggle Logic (For Mobile)
-    const sidebar = document.getElementById('sidebar');
-    const menuToggle = document.getElementById('menuToggle');
-    const closeSidebar = document.getElementById('closeSidebar');
+// ========================================
+// AI Quiz Generator - Profile Management
+// ========================================
 
-    if (menuToggle && sidebar && closeSidebar) {
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.add('active');
-        });
+const API_BASE_URL = "http://127.0.0.1:8000";
 
-        closeSidebar.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-        });
+let originalProfile = {};
+let selectedPhotoFile = null;
+let removePhotoRequested = false;
+
+// ---------- DOM Helpers ----------
+
+const getElement = (id) => document.getElementById(id);
+
+function getToken() {
+    const keys = [
+        "ai_quiz_token",
+        "access_token",
+        "token",
+        "jwt_token"
+    ];
+
+    for (const key of keys) {
+        const token =
+            localStorage.getItem(key) ||
+            sessionStorage.getItem(key);
+
+        if (token) return token;
     }
 
-    // 3. Theme Toggle (Dark/Light Mode)
-    const themeToggle = document.getElementById('themeToggle');
-    const prefDarkMode = document.getElementById('prefDarkMode');
-    const body = document.body;
+    return null;
+}
 
-    // Check saved theme in LocalStorage
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-theme');
-        if (prefDarkMode) prefDarkMode.checked = true;
+function showToast(message, type = "success") {
+    const container = getElement("toastContainer");
+
+    if (!container) {
+        console.log(message);
+        return;
     }
 
-    function toggleTheme() {
-        body.classList.toggle('dark-theme');
-        const isDark = body.classList.contains('dark-theme');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        
-        // Update both toggle button icon and settings switch
-        if (prefDarkMode) prefDarkMode.checked = isDark;
-        if (themeToggle) {
-            themeToggle.innerHTML = isDark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
-            lucide.createIcons(); // Re-render icon
-        }
+    const toast = document.createElement("div");
+    toast.className = `toast toast-${type}`;
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3500);
+}
+
+async function apiRequest(path, options = {}) {
+    const token = getToken();
+
+    if (!token) {
+        throw new Error(
+            "Login token મળ્યો નથી. કૃપા કરીને logout કરીને ફરી login કરો."
+        );
     }
 
-    if (themeToggle) themeToggle.addEventListener('click', toggleTheme);
-    if (prefDarkMode) prefDarkMode.addEventListener('change', toggleTheme);
+    const headers = {
+        "Authorization": `Bearer ${token}`,
+        ...(options.headers || {})
+    };
 
-
-    // 4. Toast Notification System
-    function showToast(message, type = 'success') {
-        const toastContainer = document.getElementById('toastContainer');
-        if (!toastContainer) return;
-
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        
-        // Add basic inline styles if profile.css doesn't have them
-        toast.style.padding = '12px 20px';
-        toast.style.margin = '10px';
-        toast.style.borderRadius = '8px';
-        toast.style.background = type === 'success' ? '#10B981' : type === 'error' ? '#EF4444' : '#3B82F6';
-        toast.style.color = '#fff';
-        toast.style.fontWeight = '500';
-        toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-        toast.style.animation = 'slideIn 0.3s ease forwards';
-        
-        toast.innerText = message;
-        toastContainer.appendChild(toast);
-
-        // Remove toast after 3 seconds
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transform = 'translateY(100%)';
-            toast.style.transition = 'all 0.3s ease';
-            setTimeout(() => toast.remove(), 300);
-        }, 3000);
+    if (options.body && !(options.body instanceof FormData)) {
+        headers["Content-Type"] = "application/json";
     }
 
-
-    // 5. Personal Information Form
-    const personalInfoForm = document.getElementById('personalInfoForm');
-    const resetBtn = document.getElementById('resetBtn');
-
-    if (personalInfoForm) {
-        personalInfoForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            // Here you would normally send data to a server
-            showToast('Personal information saved successfully!', 'success');
-        });
-    }
-
-    if (resetBtn) {
-        resetBtn.addEventListener('click', () => {
-            personalInfoForm.reset();
-            showToast('Form reset to original values.', 'info');
-        });
-    }
-
-
-    // 6. Password Visibility Toggle
-    const togglePasswordBtns = document.querySelectorAll('.toggle-password');
-    togglePasswordBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const input = this.parentElement.querySelector('input');
-            if (input.type === 'password') {
-                input.type = 'text';
-                this.innerHTML = '<i data-lucide="eye-off"></i>';
-            } else {
-                input.type = 'password';
-                this.innerHTML = '<i data-lucide="eye"></i>';
-            }
-            lucide.createIcons();
-        });
+    const response = await fetch(`${API_BASE_URL}${path}`, {
+        ...options,
+        headers
     });
 
+    const responseText = await response.text();
+    let data = {};
 
-    // 7. Password Strength Checker & Validation
-    const newPassword = document.getElementById('newPassword');
-    const strengthBar = document.getElementById('strengthBar');
-    const strengthText = document.getElementById('strengthText');
-    const passwordForm = document.getElementById('passwordForm');
-    const confirmPassword = document.getElementById('confirmPassword');
-
-    if (newPassword) {
-        newPassword.addEventListener('input', (e) => {
-            const val = e.target.value;
-            let strength = 0;
-            
-            if (val.length >= 8) strength += 1;
-            if (val.match(/[a-z]+/)) strength += 1;
-            if (val.match(/[A-Z]+/)) strength += 1;
-            if (val.match(/[0-9]+/)) strength += 1;
-            if (val.match(/[$@#&!]+/)) strength += 1;
-
-            // Update UI based on strength
-            if (val.length === 0) {
-                strengthBar.style.width = '0';
-                strengthBar.style.backgroundColor = 'transparent';
-                strengthText.innerText = 'Password Strength';
-            } else if (strength <= 2) {
-                strengthBar.style.width = '33%';
-                strengthBar.style.backgroundColor = '#EF4444'; // Red (Weak)
-                strengthText.innerText = 'Weak';
-                strengthText.style.color = '#EF4444';
-            } else if (strength === 3 || strength === 4) {
-                strengthBar.style.width = '66%';
-                strengthBar.style.backgroundColor = '#F59E0B'; // Orange (Medium)
-                strengthText.innerText = 'Medium';
-                strengthText.style.color = '#F59E0B';
-            } else {
-                strengthBar.style.width = '100%';
-                strengthBar.style.backgroundColor = '#10B981'; // Green (Strong)
-                strengthText.innerText = 'Strong';
-                strengthText.style.color = '#10B981';
-            }
-        });
+    try {
+        data = responseText ? JSON.parse(responseText) : {};
+    } catch {
+        data = { detail: responseText };
     }
 
-    if (passwordForm) {
-        passwordForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (newPassword.value !== confirmPassword.value) {
-                showToast('New passwords do not match!', 'error');
-                return;
-            }
-            showToast('Password updated successfully!', 'success');
-            passwordForm.reset();
-            if(strengthBar) strengthBar.style.width = '0';
-            if(strengthText) {
-                strengthText.innerText = 'Password Strength';
-                strengthText.style.color = 'inherit';
-            }
-        });
+    if (!response.ok) {
+        const detail = Array.isArray(data.detail)
+            ? data.detail.map(item => item.msg || "").join(", ")
+            : data.detail || data.message;
+
+        if (response.status === 401) {
+            throw new Error(
+                "Login session પૂરી થઈ ગઈ છે. ફરી login કરો."
+            );
+        }
+
+        throw new Error(
+            detail || `Request failed (${response.status})`
+        );
     }
 
+    return data;
+}
 
-    // 8. Profile Photo Upload Logic
-    const fileInput = document.getElementById('fileInput');
-    const mainAvatar = document.getElementById('mainAvatar');
-    const navAvatar = document.getElementById('navAvatar');
-    const removePhotoBtn = document.getElementById('removePhotoBtn');
-    const dropZone = document.getElementById('dropZone');
-    const defaultAvatarUrl = 'https://ui-avatars.com/api/?name=Alex+Carter&background=2563EB&color=fff';
+// ---------- Form Fields ----------
 
-    function handleFile(file) {
-        if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const imgResult = e.target.result;
-                if (mainAvatar) mainAvatar.src = imgResult;
-                if (navAvatar) navAvatar.src = imgResult;
-                showToast('Profile photo updated successfully!', 'success');
-            };
-            reader.readAsDataURL(file);
-        } else {
-            showToast('Please upload a valid JPG or PNG image.', 'error');
+function getFormFields() {
+    return {
+        name: getElement("fullName"),
+        email: getElement("email"),
+        college: getElement("college"),
+        department: getElement("department"),
+        semester: getElement("semester"),
+        mobile: getElement("mobile"),
+        dob: getElement("dob"),
+        enrollment: getElement("enrollment")
+    };
+}
+
+function getDepartmentValue(value) {
+    const select = getElement("department");
+    if (!select || !value) return "";
+
+    const normalized = String(value).trim().toLowerCase();
+
+    const aliases = {
+        "computer": ["cs", "computer science"],
+        "computer science": ["cs", "computer"],
+        "cs": ["computer", "computer science"],
+        "information technology": ["it"],
+        "it": ["information technology"],
+        "electronics": ["ec"],
+        "ec": ["electronics"]
+    };
+
+    const possibleValues = [
+        normalized,
+        ...(aliases[normalized] || [])
+    ];
+
+    for (const option of select.options) {
+        const optionValue = option.value.trim().toLowerCase();
+        const optionText = option.textContent.trim().toLowerCase();
+
+        if (
+            possibleValues.includes(optionValue) ||
+            possibleValues.includes(optionText)
+        ) {
+            return option.value;
         }
     }
 
-    if (fileInput) {
-        fileInput.addEventListener('change', (e) => {
-            handleFile(e.target.files[0]);
-        });
+    return "";
+}
+
+// ---------- Profile Display ----------
+
+function displayProfile(profile) {
+    const fields = getFormFields();
+
+    if (fields.name) {
+        fields.name.value = profile.name || "";
     }
 
-    if (removePhotoBtn) {
-        removePhotoBtn.addEventListener('click', () => {
-            if (mainAvatar) mainAvatar.src = defaultAvatarUrl;
-            if (navAvatar) navAvatar.src = defaultAvatarUrl;
-            if (fileInput) fileInput.value = '';
-            showToast('Profile photo removed.', 'info');
-        });
+    if (fields.email) {
+        fields.email.value = profile.email || "";
     }
 
-    // Drag and drop for photo upload
-    if (dropZone && fileInput) {
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.style.border = '2px dashed var(--primary)';
-            dropZone.style.background = 'var(--primary-light)';
-        });
-        
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.style.border = '2px dashed var(--border-color)';
-            dropZone.style.background = 'transparent';
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.style.border = '2px dashed var(--border-color)';
-            dropZone.style.background = 'transparent';
-            
-            if (e.dataTransfer.files.length > 0) {
-                fileInput.files = e.dataTransfer.files;
-                handleFile(e.dataTransfer.files[0]);
-            }
-        });
-
-        dropZone.addEventListener('click', () => {
-            fileInput.click();
-        });
+    if (fields.college) {
+        fields.college.value = profile.college || "";
     }
 
-
-    // 9. Danger Zone & Modals
-    const deleteModal = document.getElementById('deleteModal');
-    const deleteAccountBtn = document.getElementById('deleteAccountBtn');
-    const cancelDelete = document.getElementById('cancelDelete');
-
-    if (deleteAccountBtn && deleteModal) {
-        deleteAccountBtn.addEventListener('click', () => {
-            deleteModal.style.display = 'flex';
-        });
+    if (fields.department) {
+        fields.department.value =
+            getDepartmentValue(profile.department || "");
     }
 
-    if (cancelDelete && deleteModal) {
-        cancelDelete.addEventListener('click', () => {
-            deleteModal.style.display = 'none';
-        });
+    if (fields.semester) {
+        fields.semester.value = profile.semester || "";
     }
 
-    // Global Logout Function
-    window.logoutAll = function() {
-        showToast('Successfully logged out from all other devices.', 'info');
+    // These fields are not currently supported by the profile API.
+    if (fields.mobile) fields.mobile.value = "";
+    if (fields.dob) fields.dob.value = "";
+    if (fields.enrollment) fields.enrollment.value = "";
+
+    // Update the profile heading.
+    const displayName = getElement("profileDisplayName");
+    const displayEmail = getElement("profileDisplayEmail");
+    const memberSince = getElement("profileMemberSince");
+
+    if (displayName) {
+        displayName.textContent = profile.name || "Student";
+    }
+
+    if (displayEmail) {
+        displayEmail.textContent = profile.email || "";
+    }
+
+    if (memberSince) {
+        if (profile.created_at) {
+            const date = new Date(profile.created_at);
+
+            memberSince.textContent =
+                !Number.isNaN(date.getTime())
+                    ? date.toLocaleDateString("en-US", {
+                        month: "long",
+                        year: "numeric"
+                    })
+                    : "Not available";
+        } else {
+            memberSince.textContent = "Not available";
+        }
+    }
+
+    // Display saved profile photo if the backend provides one.
+    if (profile.profile_photo) {
+        setAvatar(profile.profile_photo);
+    } else {
+        setAvatar("");
+    }
+}
+
+function getFormProfile() {
+    const fields = getFormFields();
+
+    return {
+        name: fields.name?.value.trim() || "",
+        email: fields.email?.value.trim() || "",
+        college: fields.college?.value.trim() || "",
+        department:
+            fields.department?.selectedOptions[0]?.textContent.trim() || "",
+        semester: fields.semester?.value || ""
     };
+}
+
+function setAvatar(source) {
+    const ids = ["mainAvatar", "navAvatar"];
+
+    ids.forEach(id => {
+        const element = getElement(id);
+        if (!element) return;
+
+        if (element.tagName === "IMG") {
+            if (source) {
+                element.src = source;
+            } else {
+                element.removeAttribute("src");
+            }
+        } else {
+            element.style.backgroundImage = source
+                ? `url("${source}")`
+                : "";
+
+            element.style.backgroundSize = "cover";
+            element.style.backgroundPosition = "center";
+        }
+    });
+}
+
+// ---------- Load Profile ----------
+
+async function loadProfile() {
+    const fields = getFormFields();
+
+    // Clear hardcoded demo values immediately.
+    Object.values(fields).forEach(field => {
+        if (field && !field.disabled) {
+            field.value = "";
+        }
+    });
+
+    const displayName = getElement("profileDisplayName");
+    const displayEmail = getElement("profileDisplayEmail");
+    const memberSince = getElement("profileMemberSince");
+
+    if (displayName) displayName.textContent = "";
+    if (displayEmail) displayEmail.textContent = "";
+    if (memberSince) memberSince.textContent = "";
+
+    try {
+        const data = await apiRequest("/profile/", {
+            method: "GET"
+        });
+
+        const profile = data.profile || data;
+
+        if (data.message === "No user found" || !profile) {
+            throw new Error("Profile data મળ્યો નથી.");
+        }
+
+        displayProfile(profile);
+
+        originalProfile = getFormProfile();
+        originalProfile.profile_photo = profile.profile_photo || "";
+
+    } catch (error) {
+        console.error("Load profile error:", error);
+        showToast(error.message || "Profile load થઈ શક્યું નથી.", "error");
+    }
+}
+
+// ---------- Save Profile ----------
+
+const personalInfoForm = getElement("personalInfoForm");
+
+if (personalInfoForm) {
+    personalInfoForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const fields = getFormFields();
+
+        if (!fields.name?.value.trim()) {
+            showToast("તમારું નામ દાખલ કરો.", "error");
+            fields.name?.focus();
+            return;
+        }
+
+        if (!fields.email?.value.trim()) {
+            showToast("તમારો email દાખલ કરો.", "error");
+            fields.email?.focus();
+            return;
+        }
+
+        const submitButton = personalInfoForm.querySelector(
+            'button[type="submit"], input[type="submit"]'
+        );
+
+        const originalButtonText = submitButton
+            ? submitButton.textContent
+            : "";
+
+        try {
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = "Saving...";
+            }
+
+            const payload = getFormProfile();
+
+            const data = await apiRequest("/profile/", {
+                method: "PUT",
+                body: JSON.stringify(payload)
+            });
+
+            const updatedProfile = data.profile || {
+                ...payload,
+                ...(data.user || {})
+            };
+
+            displayProfile(updatedProfile);
+
+            originalProfile = getFormProfile();
+            originalProfile.profile_photo =
+                updatedProfile.profile_photo || "";
+
+            showToast(
+                data.message || "Profile changes saved successfully!"
+            );
+
+        } catch (error) {
+            console.error("Save profile error:", error);
+            showToast(
+                error.message || "Profile save થઈ શક્યું નથી.",
+                "error"
+            );
+        } finally {
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
+            }
+        }
+    });
+}
+
+// ---------- Reset Form ----------
+
+const resetButton = getElement("resetBtn");
+
+if (resetButton) {
+    resetButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        const fields = getFormFields();
+
+        if (fields.name) fields.name.value = originalProfile.name || "";
+        if (fields.email) fields.email.value = originalProfile.email || "";
+        if (fields.college) fields.college.value = originalProfile.college || "";
+        if (fields.semester) fields.semester.value = originalProfile.semester || "";
+
+        if (fields.department) {
+            fields.department.value =
+                getDepartmentValue(originalProfile.department || "");
+        }
+
+        if (fields.mobile) fields.mobile.value = "";
+        if (fields.dob) fields.dob.value = "";
+        if (fields.enrollment) fields.enrollment.value = "";
+
+        selectedPhotoFile = null;
+        removePhotoRequested = false;
+
+        const fileInput = getElement("fileInput");
+        if (fileInput) fileInput.value = "";
+
+        setAvatar(originalProfile.profile_photo || "");
+
+        showToast("Saved information restored.");
+    });
+}
+
+// ---------- Profile Photo Preview ----------
+
+const fileInput = getElement("fileInput");
+
+if (fileInput) {
+    fileInput.addEventListener("change", function () {
+        const file = fileInput.files?.[0];
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+            showToast("કૃપા કરીને image file પસંદ કરો.", "error");
+            fileInput.value = "";
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showToast("Photo 5 MB કરતાં નાનો હોવો જોઈએ.", "error");
+            fileInput.value = "";
+            return;
+        }
+
+        selectedPhotoFile = file;
+        removePhotoRequested = false;
+
+        const reader = new FileReader();
+
+        reader.onload = function () {
+            setAvatar(reader.result);
+        };
+
+        reader.readAsDataURL(file);
+
+        showToast("Photo preview updated. Save/upload support is required to keep it after refresh.");
+    });
+}
+
+const dropZone = getElement("dropZone");
+
+if (dropZone && fileInput) {
+    dropZone.addEventListener("click", function (event) {
+        if (event.target.closest("button")) return;
+        fileInput.click();
+    });
+
+    dropZone.addEventListener("dragover", function (event) {
+        event.preventDefault();
+        dropZone.classList.add("drag-over");
+    });
+
+    dropZone.addEventListener("dragleave", function () {
+        dropZone.classList.remove("drag-over");
+    });
+
+    dropZone.addEventListener("drop", function (event) {
+        event.preventDefault();
+        dropZone.classList.remove("drag-over");
+
+        const file = event.dataTransfer?.files?.[0];
+        if (!file) return;
+
+        if (typeof DataTransfer !== "undefined") {
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            fileInput.files = transfer.files;
+            fileInput.dispatchEvent(new Event("change"));
+        }
+    });
+}
+
+const removePhotoButton = getElement("removePhotoBtn");
+
+if (removePhotoButton) {
+    removePhotoButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        selectedPhotoFile = null;
+        removePhotoRequested = true;
+
+        if (fileInput) fileInput.value = "";
+
+        setAvatar("");
+
+        showToast(
+            "Photo preview removed. Permanent removal requires backend support."
+        );
+    });
+}
+
+// ---------- Theme Toggle ----------
+
+const themeToggle = getElement("themeToggle");
+
+if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+        document.body.classList.toggle("dark-mode");
+
+        const darkMode = document.body.classList.contains("dark-mode");
+        localStorage.setItem("profile_dark_mode", String(darkMode));
+    });
+}
+
+if (localStorage.getItem("profile_dark_mode") === "true") {
+    document.body.classList.add("dark-mode");
+}
+
+// ---------- Sidebar ----------
+
+const menuToggle = getElement("menuToggle");
+const closeSidebar = getElement("closeSidebar");
+const sidebar = getElement("sidebar");
+
+if (menuToggle && sidebar) {
+    menuToggle.addEventListener("click", function () {
+        sidebar.classList.add("active");
+    });
+}
+
+if (closeSidebar && sidebar) {
+    closeSidebar.addEventListener("click", function () {
+        sidebar.classList.remove("active");
+    });
+}
+
+// ---------- Delete Modal ----------
+
+const deleteModal = getElement("deleteModal");
+const cancelDelete = getElement("cancelDelete");
+
+if (cancelDelete && deleteModal) {
+    cancelDelete.addEventListener("click", function () {
+        deleteModal.classList.remove("active");
+        deleteModal.style.display = "none";
+    });
+}
+
+// Account deletion and permanent photo upload require backend endpoints.
+
+// ---------- Initialize ----------
+
+document.addEventListener("DOMContentLoaded", function () {
+    loadProfile();
 });

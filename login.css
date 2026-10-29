@@ -800,3 +800,25 @@ body {
     gap: 0.75rem;
   }
 }
+
+
+/* Create Account Link */
+.create-account {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #94A3B8;
+}
+
+.create-account a {
+  color: #38BDF8;
+  font-weight: 600;
+  text-decoration: none;
+  margin-left: 4px;
+  transition: color 0.2s ease;
+}
+
+.create-account a:hover {
+  color: #818CF8;
+  text-decoration: underline;
+}

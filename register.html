@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | AI Quiz Generator</title>
+  <link rel="stylesheet" href="register.css">
+</head>
+<body>
+  <main class="register-container">
+    <section class="register-card">
+      <div class="logo">AI</div>
+
+      <h1>Create Account</h1>
+      <p class="subtitle">Join AI Quiz Generator and start learning smarter.</p>
+
+      <div id="statusMessage" class="status-message" role="alert" hidden></div>
+
+      <form id="registerForm">
+        <label for="name">Full Name</label>
+        <input id="name" name="name" type="text"
+               placeholder="Enter your full name"
+               autocomplete="name" required maxlength="100">
+
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email"
+               placeholder="student@example.com"
+               autocomplete="email" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password"
+               placeholder="At least 6 characters"
+               autocomplete="new-password" minlength="6"
+               maxlength="72" required>
+
+        <label for="college">College Name</label>
+        <input id="college" name="college" type="text"
+               placeholder="Enter your college name"
+               autocomplete="organization" maxlength="150">
+
+        <div class="field-row">
+          <div>
+            <label for="semester">Semester</label>
+            <select id="semester" name="semester">
+              <option value="">Select semester</option>
+              <option value="1">Semester 1</option>
+              <option value="2">Semester 2</option>
+              <option value="3">Semester 3</option>
+              <option value="4">Semester 4</option>
+              <option value="5">Semester 5</option>
+              <option value="6">Semester 6</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="department">Department</label>
+            <input id="department" name="department" type="text"
+                   placeholder="e.g. Computer" maxlength="100">
+          </div>
+        </div>
+
+        <button id="registerButton" type="submit">
+          <span id="buttonText">Create Account</span>
+        </button>
+      </form>
+
+      <p class="login-link">
+        Already have an account?
+        <a href="login.html">Sign In</a>
+      </p>
+    </section>
+  </main>
+
+  <script src="register.js"></script>
+</body>
+</html>

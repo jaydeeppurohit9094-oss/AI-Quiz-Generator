@@ -168,6 +168,7 @@ const performanceStore = {
 class PerformanceApp {
   constructor() {
     this.currentRange = "7d";
+    this.currentData = null;
     this.canvas = document.getElementById("scoreChart");
     this.ctx = this.canvas ? this.canvas.getContext("2d") : null;
     this.tooltip = document.getElementById("chartTooltip");
@@ -188,11 +189,11 @@ class PerformanceApp {
     // Time filter change
     const timeFilter = document.getElementById("timeFilterSelect");
     if (timeFilter) {
-      timeFilter.addEventListener("change", (e) => {
-        this.currentRange = e.target.value;
-        this.renderAll();
-      });
-    }
+  timeFilter.addEventListener("change", async (e) => {
+    this.currentRange = e.target.value;
+    await this.renderAll();
+  });
+}
 
     // Mobile Sidebar toggle
     const mobileBtn = document.getElementById("mobileMenuBtn");
@@ -220,58 +221,215 @@ class PerformanceApp {
     }
   }
 
-  renderAll() {
-    const data = performanceStore[this.currentRange];
-    
-    // Empty state safety check
-    const content = document.getElementById("performanceContent");
-    const empty = document.getElementById("emptyState");
-    if (!data || !data.quizScores || data.quizScores.length === 0) {
-      if (content) content.classList.add("hidden");
-      if (empty) empty.classList.remove("hidden");
-      return;
-    } else {
-      if (content) content.classList.remove("hidden");
-      if (empty) empty.classList.add("hidden");
+
+async renderAll() {
+  const content = document.getElementById("performanceContent");
+  const empty = document.getElementById("emptyState");
+
+  try {
+    if (content) content.classList.add("hidden");
+    if (empty) {
+      empty.classList.remove("hidden");
+      empty.textContent = "Loading your performance...";
     }
+
+    // JWT token શોધો
+    const tokenKeys = [
+      "ai_quiz_token",
+      "access_token",
+      "token",
+      "jwt_token"
+    ];
+
+    let token = null;
+
+    for (const key of tokenKeys) {
+      const value = localStorage.getItem(key);
+      if (value && value.split(".").length === 3) {
+        token = value;
+        break;
+      }
+    }
+
+    // બીજા localStorage keys માં token હોય તો પણ શોધો
+    if (!token) {
+      for (let i = 0; i < localStorage.length; i++) {
+        const value = localStorage.getItem(localStorage.key(i));
+        if (value && value.split(".").length === 3) {
+          token = value;
+          break;
+        }
+      }
+    }
+
+    if (!token) {
+      throw new Error(
+        "Login token મળ્યો નથી. ફરી login કરીને Performance page ખોલો."
+      );
+    }
+
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/performance?period=${this.currentRange}`,
+      {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/json"
+        }
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+
+      if (response.status === 401) {
+        throw new Error("Login session expired. ફરી login કરો.");
+      }
+
+      throw new Error(
+        errorData.detail || `API Error: ${response.status}`
+      );
+    }
+
+    const apiData = await response.json();
+
+    this.currentData = apiData;
+
+    if (apiData.quizzes_completed === 0) {
+      if (content) content.classList.add("hidden");
+      if (empty) {
+        empty.classList.remove("hidden");
+        empty.textContent =
+          "હજુ કોઈ completed quiz નથી. પહેલાં quiz complete કરો.";
+      }
+      return;
+    }
+
+    if (content) content.classList.remove("hidden");
+    if (empty) empty.classList.add("hidden");
+
+    const recent = [...(apiData.recent_quizzes || [])].reverse();
+
+    const data = {
+      averageScore: apiData.average_score ?? 0,
+      quizzesCompleted: apiData.quizzes_completed ?? 0,
+      questionsCorrect: apiData.questions_correct ?? 0,
+      bestScore: apiData.best_score ?? 0,
+      accuracyVal: `${apiData.accuracy ?? 0}%`,
+      breakdown: {
+        correct: apiData.questions_correct ?? 0,
+        wrong: apiData.questions_wrong ?? 0,
+        skipped: apiData.questions_skipped ?? 0
+      },
+      quizScores: recent.map((quiz, index) => ({
+        quiz: `Quiz ${index + 1}`,
+        score: Number(quiz.percentage) || 0
+      })),
+      recentQuizzes: (apiData.recent_quizzes || []).map(quiz => {
+        const score = Number(quiz.percentage) || 0;
+        const questions = Number(quiz.question_count) || 0;
+        const correct = Number(quiz.correct_count) || 0;
+
+        let status = "Needs Work";
+        if (score >= 90) status = "Excellent";
+        else if (score >= 80) status = "Good";
+        else if (score >= 70) status = "Average";
+
+        const submittedDate = quiz.submitted_at
+          ? new Date(quiz.submitted_at).toLocaleDateString()
+          : "—";
+
+        return {
+          name: quiz.title || "Untitled Quiz",
+          subject: "—",
+          score,
+          accuracy: questions
+            ? Math.round((correct / questions) * 100)
+            : 0,
+          questions,
+          date: submittedDate,
+          status
+        };
+      })
+    };
 
     this.updateStatsCards(data);
     this.renderDonut(data);
-    this.renderSubjects(data.subjects);
-    this.renderStrengthsAndImprovements(data.strengths, data.improvements);
     this.renderTable(data.recentQuizzes);
     this.triggerChartAnimation(data.quizScores);
-  }
 
-  updateStatsCards(data) {
-    document.getElementById("valAvgScore").textContent = `${data.averageScore}%`;
-    document.getElementById("valAvgScoreComp").textContent = data.scoreDiff;
-    document.getElementById("valQuizzesCompleted").textContent = data.quizzesCompleted;
-    document.getElementById("valQuizzesCompletedSub").textContent = data.quizDiff;
-    document.getElementById("valQuestionsCorrect").textContent = data.questionsCorrect;
-    document.getElementById("valQuestionsAccuracy").textContent = `${data.accuracyVal} accuracy`;
-    document.getElementById("valBestScore").textContent = `${data.bestScore}%`;
-  }
+    // હાલ backend આ data આપતું નથી.
+    // તેથી જૂના demo subject/topic numbers બતાવવાના નથી.
+    this.renderSubjects([]);
+    this.renderStrengthsAndImprovements([], []);
 
-  renderDonut(data) {
-    const total = data.breakdown.correct + data.breakdown.wrong + data.breakdown.skipped;
-    const correctPct = (data.breakdown.correct / total) * 100;
-    const wrongPct = (data.breakdown.wrong / total) * 100;
+  } catch (error) {
+    console.error("Performance API error:", error);
 
-    const ring = document.getElementById("donutRing");
-    if (ring) {
-      ring.style.background = `conic-gradient(
-        var(--success-green) 0% ${correctPct}%,
-        var(--danger-red) ${correctPct}% ${correctPct + wrongPct}%,
-        var(--warning-orange) ${correctPct + wrongPct}% 100%
-      )`;
+    if (content) content.classList.add("hidden");
+
+    if (empty) {
+      empty.classList.remove("hidden");
+      empty.textContent = error.message ||
+        "Performance data load થઈ શક્યો નથી.";
     }
-
-    document.getElementById("donutAccuracyVal").textContent = data.accuracyVal;
-    document.getElementById("legendCorrect").textContent = data.breakdown.correct;
-    document.getElementById("legendWrong").textContent = data.breakdown.wrong;
-    document.getElementById("legendSkipped").textContent = data.breakdown.skipped;
   }
+}
+
+ 
+updateStatsCards(data) {
+  document.getElementById("valAvgScore").textContent =
+    `${data.averageScore}%`;
+
+  document.getElementById("valAvgScoreComp").textContent =
+    "Selected period";
+
+  document.getElementById("valQuizzesCompleted").textContent =
+    data.quizzesCompleted;
+
+  document.getElementById("valQuizzesCompletedSub").textContent =
+    "Completed attempts";
+
+  document.getElementById("valQuestionsCorrect").textContent =
+    data.questionsCorrect;
+
+  document.getElementById("valQuestionsAccuracy").textContent =
+    `${data.accuracyVal} accuracy`;
+
+  document.getElementById("valBestScore").textContent =
+    `${data.bestScore}%`;
+}
+
+ 
+renderDonut(data) {
+  const correct = data.breakdown.correct;
+  const wrong = data.breakdown.wrong;
+  const skipped = data.breakdown.skipped;
+  const total = correct + wrong + skipped;
+
+  const correctPct = total ? (correct / total) * 100 : 0;
+  const wrongPct = total ? (wrong / total) * 100 : 0;
+
+  const ring = document.getElementById("donutRing");
+
+  if (ring) {
+    ring.style.background = total
+      ? `conic-gradient(
+          var(--success-green) 0% ${correctPct}%,
+          var(--danger-red) ${correctPct}% ${correctPct + wrongPct}%,
+          var(--warning-orange) ${correctPct + wrongPct}% 100%
+        )`
+      : "#334155";
+  }
+
+  document.getElementById("donutAccuracyVal").textContent =
+    data.accuracyVal;
+
+  document.getElementById("legendCorrect").textContent = correct;
+  document.getElementById("legendWrong").textContent = wrong;
+  document.getElementById("legendSkipped").textContent = skipped;
+}
+
 
   renderSubjects(subjects) {
     const container = document.getElementById("subjectProgressList");
@@ -378,12 +536,17 @@ class PerformanceApp {
   }
 
   resizeAndDrawChart() {
-    const data = performanceStore[this.currentRange];
-    if (data && data.quizScores) {
-      this.drawScoreChart(data.quizScores, 1);
-    }
-  }
+  if (this.currentData) {
+    const recent = [...(this.currentData.recent_quizzes || [])].reverse();
 
+    const scores = recent.map((quiz, index) => ({
+      quiz: `Quiz ${index + 1}`,
+      score: Number(quiz.percentage) || 0
+    }));
+
+    this.drawScoreChart(scores, 1);
+  }
+}
   drawScoreChart(scores, progress = 1) {
     if (!this.canvas || !this.ctx) return;
 

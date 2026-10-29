@@ -40,7 +40,7 @@
                     <li class="nav-item"><a href="deshboard.html"><i data-lucide="layout-dashboard"></i> Dashboard</a></li>
                     <li class="nav-item"><a href="upload.html"><i data-lucide="upload-cloud"></i> Upload Material</a></li>
                     
-                    <li class="nav-item"><a href="quiz-history.html"><i data-lucide="history"></i> Quiz History</a></li>
+                    
                     <li class="nav-item"><a href="performance.html"><i data-lucide="bar-chart-2"></i> Performance</a></li>
                  
                     <li class="nav-item active"><a href="profile.html"><i data-lucide="user"></i> Profile</a></li>
@@ -113,11 +113,27 @@
                                 <i data-lucide="camera"></i>
                             </button>
                         </div>
-                        <div class="profile-title">
-                            <h1>Alex Carter <span class="status-badge bg-success-light text-success"><i data-lucide="check-circle-2"></i> Active</span></h1>
-                            <p>Student ID: STU-849201 • alex.carter@university.edu</p>
-                            <p class="member-since">Member since September 2024</p>
-                        </div>
+                       
+<div class="profile-title">
+    <h1>
+        <span id="profileDisplayName">Loading...</span>
+        <span class="status-badge bg-success-light text-success">
+            <i data-lucide="check-circle-2"></i> Active
+        </span>
+    </h1>
+
+    
+<p>
+    <span id="profileDisplayEmail">Loading...</span>
+</p>
+```
+
+
+    <p class="member-since">
+        Member since <span id="profileMemberSince">Loading...</span>
+    </p>
+</div>
+
                     </div>
                 </section>
 
