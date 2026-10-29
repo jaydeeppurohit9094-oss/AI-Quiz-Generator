@@ -5,10 +5,21 @@ import bcrypt
 import jwt
 import os
 from datetime import datetime, timedelta
+from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+BASE_DIR = Path(__file__).resolve().parent
+load_dotenv(BASE_DIR / ".env")
+
 
 router = APIRouter()
 
-JWT_SECRET = os.getenv("JWT_SECRET", "change-this-secret")
+JWT_SECRET = os.getenv("JWT_SECRET")
+
+if not JWT_SECRET:
+    raise ValueError("JWT_SECRET is missing from backend .env")
+
 JWT_ALGORITHM = "HS256"
 
 
